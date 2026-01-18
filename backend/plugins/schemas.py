@@ -9,7 +9,7 @@ This module defines the core data structures for the plugin system:
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Any
+from typing import Any, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -55,8 +55,8 @@ class PluginConfig(BaseModel):
     name: str
     enabled: bool = True
     interval_minutes: int = Field(ge=1, le=1440, default=60)
-    credentials: dict[str, Any] | None = None
-    options: dict[str, Any] | None = None
+    credentials: Optional[dict[str, Any]] = None
+    options: Optional[dict[str, Any]] = None
 
 
 class ValidationResult(BaseModel):
@@ -70,5 +70,5 @@ class ValidationResult(BaseModel):
     """
 
     is_valid: bool
-    errors: list[str] | None = None
-    warnings: list[str] | None = None
+    errors: Optional[list[str]] = None
+    warnings: Optional[list[str]] = None

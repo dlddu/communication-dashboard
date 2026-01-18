@@ -10,9 +10,7 @@ This test suite verifies the core plugin system including:
 These tests are written in TDD style (Red Phase) and will fail until implementation is complete.
 """
 
-from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, Dict, List, Optional
 
 import pytest
 from pydantic import ValidationError
@@ -45,18 +43,18 @@ class TestBasePlugin:
 
     def test_plugin_fetch_returns_plugin_data_list(self) -> None:
         """
-        Test that a properly implemented plugin returns List[PluginData] from fetch().
+        Test that a properly implemented plugin returns list[PluginData] from fetch().
 
         Expected behavior:
         - fetch() should return a list
         - All items in the list should be PluginData instances
         """
         from backend.plugins.base import BasePlugin
-        from backend.plugins.schemas import PluginData
+        from backend.plugins.schemas import PluginData, PluginConfig
 
         # Arrange: Create a complete plugin implementation
         class TestPlugin(BasePlugin):
-            def fetch(self) -> List[PluginData]:
+            def fetch(self) -> list[PluginData]:
                 return [
                     PluginData(
                         id="test-1",
@@ -70,7 +68,8 @@ class TestBasePlugin:
                 ]
 
         # Act
-        plugin = TestPlugin()
+        config = PluginConfig(name="test-plugin", enabled=True, interval_minutes=60)
+        plugin = TestPlugin(config)
         result = plugin.fetch()
 
         # Assert
@@ -372,7 +371,7 @@ class TestPluginIntegration:
             def __init__(self, config: PluginConfig) -> None:
                 self.config = config
 
-            def fetch(self) -> List[PluginData]:
+            def fetch(self) -> list[PluginData]:
                 if not self.config.enabled:
                     return []
 
@@ -420,7 +419,7 @@ class TestPluginIntegration:
             def __init__(self, config: PluginConfig) -> None:
                 self.config = config
 
-            def fetch(self) -> List[PluginData]:
+            def fetch(self) -> list[PluginData]:
                 if not self.config.enabled:
                     return []
                 return [
