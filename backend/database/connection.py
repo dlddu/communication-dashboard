@@ -6,8 +6,8 @@ with automatic table creation and context manager support.
 """
 
 import sqlite3
+from collections.abc import Generator
 from contextlib import contextmanager
-from typing import Generator
 
 
 class DatabaseConnection:
@@ -48,7 +48,9 @@ class DatabaseConnection:
         - plugin_data table with proper schema
         - Indices on source and timestamp columns for performance
         """
-        with self.get_connection() as conn:
+        # Use direct connection instead of get_connection() to avoid circular issues
+        conn = sqlite3.connect(self.db_path, check_same_thread=False)
+        try:
             cursor = conn.cursor()
 
             # Create plugin_data table
@@ -82,6 +84,8 @@ class DatabaseConnection:
             )
 
             conn.commit()
+        finally:
+            conn.close()
 
     @contextmanager
     def get_connection(self) -> Generator[sqlite3.Connection, None, None]:
