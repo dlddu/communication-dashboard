@@ -19,6 +19,7 @@ class DatabaseConnection:
     - Context manager support for connection lifecycle
     - Thread-safe connection handling
     - Proper indexing for performance
+    - Persistent connection for :memory: databases
 
     Args:
         db_path: Path to SQLite database file or ":memory:" for in-memory database
@@ -38,6 +39,8 @@ class DatabaseConnection:
             db_path: Path to SQLite database file or ":memory:" for in-memory database
         """
         self.db_path = db_path
+        # Create and keep connection alive for :memory: databases
+        self._conn = sqlite3.connect(self.db_path, check_same_thread=False)
         self._initialize_database()
 
     def _initialize_database(self) -> None:
@@ -48,49 +51,46 @@ class DatabaseConnection:
         - plugin_data table with proper schema
         - Indices on source and timestamp columns for performance
         """
-        # Use direct connection instead of get_connection() to avoid circular issues
-        conn = sqlite3.connect(self.db_path, check_same_thread=False)
-        try:
-            cursor = conn.cursor()
+        cursor = self._conn.cursor()
 
-            # Create plugin_data table
-            cursor.execute(
-                """
-                CREATE TABLE IF NOT EXISTS plugin_data (
-                    id TEXT PRIMARY KEY,
-                    source TEXT NOT NULL,
-                    title TEXT NOT NULL,
-                    content TEXT NOT NULL,
-                    timestamp TEXT NOT NULL,
-                    metadata TEXT,
-                    read INTEGER DEFAULT 0
-                )
-                """
+        # Create plugin_data table
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS plugin_data (
+                id TEXT PRIMARY KEY,
+                source TEXT NOT NULL,
+                title TEXT NOT NULL,
+                content TEXT NOT NULL,
+                timestamp TEXT NOT NULL,
+                metadata TEXT,
+                read INTEGER DEFAULT 0
             )
+            """
+        )
 
-            # Create indices for performance
-            cursor.execute(
-                """
-                CREATE INDEX IF NOT EXISTS idx_plugin_data_source
-                ON plugin_data(source)
-                """
-            )
+        # Create indices for performance
+        cursor.execute(
+            """
+            CREATE INDEX IF NOT EXISTS idx_plugin_data_source
+            ON plugin_data(source)
+            """
+        )
 
-            cursor.execute(
-                """
-                CREATE INDEX IF NOT EXISTS idx_plugin_data_timestamp
-                ON plugin_data(timestamp)
-                """
-            )
+        cursor.execute(
+            """
+            CREATE INDEX IF NOT EXISTS idx_plugin_data_timestamp
+            ON plugin_data(timestamp)
+            """
+        )
 
-            conn.commit()
-        finally:
-            conn.close()
+        self._conn.commit()
 
     @contextmanager
     def get_connection(self) -> Generator[sqlite3.Connection, None, None]:
         """
         Get a database connection as a context manager.
+
+        Returns the persistent connection for :memory: databases.
 
         Yields:
             sqlite3.Connection: Database connection object
@@ -101,11 +101,22 @@ class DatabaseConnection:
             ...     cursor = conn.cursor()
             ...     cursor.execute("SELECT 1")
         """
-        conn = sqlite3.connect(self.db_path, check_same_thread=False)
-        try:
-            yield conn
-        finally:
-            conn.close()
+        yield self._conn
+
+    def close(self) -> None:
+        """
+        Close the database connection.
+
+        This should be called when the DatabaseConnection is no longer needed,
+        especially for :memory: databases.
+
+        Example:
+            >>> db = DatabaseConnection(":memory:")
+            >>> # ... use database ...
+            >>> db.close()
+        """
+        if hasattr(self, "_conn"):
+            self._conn.close()
 
     def __enter__(self) -> sqlite3.Connection:
         """
@@ -114,8 +125,7 @@ class DatabaseConnection:
         Returns:
             sqlite3.Connection: Database connection object
         """
-        self._context_conn = sqlite3.connect(self.db_path, check_same_thread=False)
-        return self._context_conn
+        return self._conn
 
     def __exit__(self, exc_type: object, exc_val: object, exc_tb: object) -> None:
         """
@@ -126,5 +136,4 @@ class DatabaseConnection:
             exc_val: Exception value if an exception occurred
             exc_tb: Exception traceback if an exception occurred
         """
-        if hasattr(self, "_context_conn"):
-            self._context_conn.close()
+        self.close()

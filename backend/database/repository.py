@@ -7,7 +7,7 @@ operations for PluginData objects.
 
 import json
 from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from backend.database.connection import DatabaseConnection
 from backend.plugins.schemas import PluginData
@@ -120,7 +120,7 @@ class PluginDataRepository:
 
             return self._row_to_plugin_data(row)
 
-    def get_latest_by_plugin(self, source: str, limit: int = 10) -> List[PluginData]:
+    def get_latest_by_plugin(self, source: str, limit: int = 10) -> list[PluginData]:
         """
         Get latest records for a specific plugin source.
 
@@ -220,7 +220,7 @@ class PluginDataRepository:
 
             return updated
 
-    def get_all_unread(self) -> List[PluginData]:
+    def get_all_unread(self) -> list[PluginData]:
         """
         Get all unread records.
 
@@ -308,7 +308,7 @@ class PluginDataRepository:
 
             return deleted
 
-    def _row_to_plugin_data(self, row: Tuple[Any, ...]) -> PluginData:
+    def _row_to_plugin_data(self, row: tuple[Any, ...]) -> PluginData:
         """
         Convert database row to PluginData instance.
 
@@ -327,7 +327,7 @@ class PluginDataRepository:
         timestamp = datetime.fromisoformat(timestamp_str)
 
         # Deserialize metadata from JSON
-        metadata: Dict[str, Any] = json.loads(metadata_json) if metadata_json else {}
+        metadata: dict[str, Any] = json.loads(metadata_json) if metadata_json else {}
 
         # Convert integer to boolean
         read = bool(read_int)
