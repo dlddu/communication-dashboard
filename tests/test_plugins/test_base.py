@@ -50,7 +50,7 @@ class TestBasePlugin:
         - All items in the list should be PluginData instances
         """
         from backend.plugins.base import BasePlugin
-        from backend.plugins.schemas import PluginData, PluginConfig
+        from backend.plugins.schemas import PluginConfig, PluginData
 
         # Arrange: Create a complete plugin implementation
         class TestPlugin(BasePlugin):
