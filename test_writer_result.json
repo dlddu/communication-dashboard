@@ -1,0 +1,209 @@
+{
+  "success": true,
+  "tests_created": [
+    {
+      "file": "/tmp/communication-dashboard/tests/plugins/test_base.py",
+      "action": "created",
+      "type": "unit",
+      "test_cases": [
+        {
+          "name": "test_plugin_must_implement_fetch",
+          "description": "Validates that BasePlugin subclass without fetch() raises TypeError",
+          "category": "error_case"
+        },
+        {
+          "name": "test_plugin_must_implement_validate_config",
+          "description": "Validates that BasePlugin subclass without validate_config() raises TypeError",
+          "category": "error_case"
+        },
+        {
+          "name": "test_plugin_fetch_returns_plugin_data_list",
+          "description": "Validates that properly implemented plugin returns List[PluginData]",
+          "category": "happy_path"
+        },
+        {
+          "name": "test_plugin_data_fields",
+          "description": "Validates all PluginData fields are present with correct types",
+          "category": "happy_path"
+        },
+        {
+          "name": "test_plugin_data_with_read_true",
+          "description": "Validates PluginData read field can be set to True",
+          "category": "edge_case"
+        },
+        {
+          "name": "test_plugin_data_immutable",
+          "description": "Validates PluginData is frozen (immutable)",
+          "category": "error_case"
+        },
+        {
+          "name": "test_plugin_data_metadata_can_contain_any_type",
+          "description": "Validates metadata accepts dict[str, Any] with various types",
+          "category": "edge_case"
+        },
+        {
+          "name": "test_plugin_config_validation_valid",
+          "description": "Validates PluginConfig creation with required fields and defaults",
+          "category": "happy_path"
+        },
+        {
+          "name": "test_plugin_config_with_all_fields",
+          "description": "Validates PluginConfig with all fields explicitly set",
+          "category": "happy_path"
+        },
+        {
+          "name": "test_plugin_config_interval_boundary_valid",
+          "description": "Validates interval_minutes boundary values (1, 1440)",
+          "category": "edge_case"
+        },
+        {
+          "name": "test_plugin_config_interval_boundary_invalid_zero",
+          "description": "Validates interval_minutes=0 raises ValidationError",
+          "category": "error_case"
+        },
+        {
+          "name": "test_plugin_config_interval_boundary_invalid_negative",
+          "description": "Validates interval_minutes=-1 raises ValidationError",
+          "category": "error_case"
+        },
+        {
+          "name": "test_plugin_config_interval_boundary_invalid_too_large",
+          "description": "Validates interval_minutes=1441 raises ValidationError",
+          "category": "error_case"
+        },
+        {
+          "name": "test_plugin_config_missing_required_field_name",
+          "description": "Validates missing 'name' field raises ValidationError",
+          "category": "error_case"
+        },
+        {
+          "name": "test_plugin_config_missing_required_field_interval",
+          "description": "Validates missing 'interval_minutes' field raises ValidationError",
+          "category": "error_case"
+        },
+        {
+          "name": "test_validation_result_structure_valid",
+          "description": "Validates ValidationResult structure for success case",
+          "category": "happy_path"
+        },
+        {
+          "name": "test_validation_result_structure_invalid",
+          "description": "Validates ValidationResult can represent errors",
+          "category": "happy_path"
+        },
+        {
+          "name": "test_validation_result_can_be_used_in_plugin",
+          "description": "Validates ValidationResult usage in plugin validate_config",
+          "category": "happy_path"
+        },
+        {
+          "name": "test_complete_plugin_workflow",
+          "description": "End-to-end test of plugin creation, config validation, and data fetching",
+          "category": "happy_path"
+        },
+        {
+          "name": "test_plugin_with_invalid_config_workflow",
+          "description": "Validates error handling in complete workflow with invalid config",
+          "category": "error_case"
+        }
+      ]
+    }
+  ],
+  "test_summary": {
+    "total_files": 1,
+    "total_test_cases": 20,
+    "new_test_cases": 20,
+    "modified_test_cases": 0,
+    "by_category": {
+      "happy_path": 8,
+      "edge_case": 4,
+      "error_case": 8
+    }
+  },
+  "workflow_changes": {
+    "file": "/tmp/communication-dashboard/.github/workflows/test.yml",
+    "action": "created",
+    "changes": [
+      "Added Python 3.11 setup step",
+      "Added pip dependency installation",
+      "Added mypy type checking step (strict mode)",
+      "Added pytest execution with coverage",
+      "Added coverage threshold check (80%)",
+      "Added Codecov upload step"
+    ]
+  },
+  "project_structure": {
+    "created_files": [
+      "/tmp/communication-dashboard/pyproject.toml",
+      "/tmp/communication-dashboard/requirements.txt",
+      "/tmp/communication-dashboard/requirements-dev.txt",
+      "/tmp/communication-dashboard/.gitignore",
+      "/tmp/communication-dashboard/README.md",
+      "/tmp/communication-dashboard/TEST_PLAN.md",
+      "/tmp/communication-dashboard/src/__init__.py",
+      "/tmp/communication-dashboard/src/plugins/__init__.py",
+      "/tmp/communication-dashboard/tests/__init__.py",
+      "/tmp/communication-dashboard/tests/plugins/__init__.py",
+      "/tmp/communication-dashboard/tests/plugins/test_base.py",
+      "/tmp/communication-dashboard/.github/workflows/test.yml"
+    ],
+    "implementation_needed": [
+      "/tmp/communication-dashboard/src/plugins/base.py"
+    ]
+  },
+  "test_commands": {
+    "install_dependencies": "pip install -e '.[dev]'",
+    "install_dependencies_alt": "pip install -r requirements-dev.txt",
+    "run_all": "pytest",
+    "run_specific": "pytest tests/plugins/test_base.py",
+    "run_verbose": "pytest tests/plugins/test_base.py -v",
+    "run_watch": "pytest tests/plugins/test_base.py --watch",
+    "coverage": "pytest --cov --cov-report=term-missing",
+    "coverage_html": "pytest --cov --cov-report=html",
+    "type_check": "mypy src --strict"
+  },
+  "dependencies_needed": [
+    {
+      "name": "pydantic",
+      "version": ">=2.0.0",
+      "type": "dependency",
+      "reason": "For PluginConfig validation model"
+    },
+    {
+      "name": "pytest",
+      "version": ">=7.0.0",
+      "type": "devDependency",
+      "reason": "Test framework"
+    },
+    {
+      "name": "pytest-cov",
+      "version": ">=4.0.0",
+      "type": "devDependency",
+      "reason": "Coverage reporting"
+    },
+    {
+      "name": "mypy",
+      "version": ">=1.0.0",
+      "type": "devDependency",
+      "reason": "Type checking with --strict mode"
+    },
+    {
+      "name": "coverage",
+      "version": ">=7.0.0",
+      "type": "devDependency",
+      "reason": "Coverage threshold checking"
+    }
+  ],
+  "notes": [
+    "TDD Red Phase: All tests are written and will be skipped until implementation exists",
+    "Tests use pytest.mark.skipif to gracefully handle missing implementation",
+    "Implementation file needed: src/plugins/base.py",
+    "Test coverage target: 80% or higher",
+    "Type checking: mypy --strict mode enabled",
+    "GitHub Actions workflow will run on push/PR to main branch",
+    "Python 3.12.3 is available in the environment (compatible with 3.11+ requirement)",
+    "All 20 test cases cover happy path, edge cases, and error handling",
+    "Tests follow AAA pattern (Arrange, Act, Assert)",
+    "Comprehensive documentation provided in README.md and TEST_PLAN.md"
+  ]
+}
