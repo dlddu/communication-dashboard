@@ -43,7 +43,7 @@ class PluginDataRepository:
         """
         self.db = db
 
-    def save(self, data: PluginData) -> None:
+    def save(self, data: PluginData) -> PluginData:
         """
         Save or update PluginData in database.
 
@@ -52,8 +52,11 @@ class PluginDataRepository:
         Args:
             data: PluginData instance to save
 
+        Returns:
+            The saved PluginData instance
+
         Example:
-            >>> repo.save(PluginData(id="1", source="email", ...))
+            >>> result = repo.save(PluginData(id="1", source="email", ...))
         """
         with self.db.get_connection() as conn:
             cursor = conn.cursor()
@@ -85,6 +88,7 @@ class PluginDataRepository:
             )
 
             conn.commit()
+            return data
 
     def get_by_id(self, id: str) -> Optional[PluginData]:
         """
