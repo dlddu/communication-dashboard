@@ -7,7 +7,7 @@ and lifecycle management.
 """
 
 import logging
-from typing import Any, Callable
+from typing import Any, Callable, cast
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
@@ -175,4 +175,4 @@ class PluginScheduler:
             >>> for job in jobs:
             ...     print(job.id)
         """
-        return self._scheduler.get_jobs()
+        return cast(list[Any], self._scheduler.get_jobs())

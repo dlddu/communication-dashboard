@@ -13,8 +13,7 @@ These tests are written in TDD style (Red Phase) and will fail until implementat
 
 import asyncio
 from datetime import datetime
-from typing import Any
-from unittest.mock import AsyncMock, Mock, patch
+from unittest.mock import patch
 
 import pytest
 
@@ -41,7 +40,7 @@ class TestPluginScheduler:
 
         # Act
         await scheduler.start()
-        
+
         # Assert: Scheduler should be running
         assert scheduler.is_running()
 
@@ -80,14 +79,14 @@ class TestPluginScheduler:
         # Assert
         jobs = scheduler.get_jobs()
         assert len(jobs) > 0
-        
+
         # Find job with matching ID
         test_job = None
         for job in jobs:
             if job.id == "plugin:test-plugin":
                 test_job = job
                 break
-        
+
         assert test_job is not None
         assert test_job.id == "plugin:test-plugin"
 
@@ -385,7 +384,7 @@ class TestPluginScheduler:
 
         # Act
         await scheduler.start()
-        
+
         # Calling start again should be safe
         await scheduler.start()
 
