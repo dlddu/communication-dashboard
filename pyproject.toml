@@ -10,6 +10,8 @@ requires-python = ">=3.9"
 dependencies = [
     "pydantic>=2.0.0",
     "apscheduler>=3.10.0",
+    "fastapi>=0.104.0",
+    "uvicorn>=0.24.0",
 ]
 
 [project.optional-dependencies]
@@ -19,6 +21,7 @@ dev = [
     "pytest-asyncio>=0.21.0",
     "mypy>=1.5.0",
     "ruff>=0.1.0",
+    "httpx>=0.25.0",
 ]
 
 [tool.pytest.ini_options]
@@ -53,6 +56,22 @@ disallow_untyped_defs = false
 
 [[tool.mypy.overrides]]
 module = "apscheduler.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "fastapi.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "uvicorn.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "starlette.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "httpx.*"
 ignore_missing_imports = true
 
 [tool.ruff]
