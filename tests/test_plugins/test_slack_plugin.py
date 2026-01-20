@@ -344,6 +344,7 @@ class TestSlackPluginFetch:
         # Act
         plugin = SlackPlugin(config)
         result = plugin.fetch()
+        assert isinstance(result, list)  # Verify result is returned
 
         # Assert
         # Should only call conversations_history for filtered channels
