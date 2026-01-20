@@ -12,6 +12,7 @@ dependencies = [
     "apscheduler>=3.10.0",
     "fastapi>=0.104.0",
     "uvicorn>=0.24.0",
+    "slack-sdk>=3.23.0",
 ]
 
 [project.optional-dependencies]
@@ -107,3 +108,7 @@ exclude_lines = [
     "if TYPE_CHECKING:",
     "@abstractmethod",
 ]
+
+[[tool.mypy.overrides]]
+module = "slack_sdk.*"
+ignore_missing_imports = true
