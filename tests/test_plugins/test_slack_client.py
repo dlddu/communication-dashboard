@@ -13,9 +13,7 @@ This test suite verifies the SlackClient implementation including:
 Tests follow TDD style with AAA (Arrange-Act-Assert) pattern.
 """
 
-import asyncio
 from datetime import datetime
-from typing import Any
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import httpx
@@ -765,7 +763,7 @@ class TestSlackClientFetchIntegration:
             mock_client.return_value.__aenter__.return_value = mock_async_client
 
             client = SlackClient(config)
-            result = await client.fetch()
+            await client.fetch()
 
         # Assert
         # Should call: 1 conversations.list + 2 conversations.history (not 3)
