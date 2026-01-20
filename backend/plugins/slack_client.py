@@ -6,7 +6,7 @@ It handles rate limiting with exponential backoff and network error retries.
 """
 
 import asyncio
-from typing import Any
+from typing import Any, Optional, cast
 
 import httpx
 
@@ -82,13 +82,13 @@ class SlackClient:
             endpoint="conversations.list",
             params={},
         )
-        return response_data.get("channels", [])
+        return cast(list[dict[str, Any]], response_data.get("channels", []))
 
     async def conversations_history(
         self,
         channel_id: str,
         limit: int = 100,
-        oldest: str | None = None,
+        oldest: Optional[str] = None,
     ) -> list[dict[str, Any]]:
         """
         Retrieve message history from a Slack channel.
@@ -118,7 +118,7 @@ class SlackClient:
             endpoint="conversations.history",
             params=params,
         )
-        return response_data.get("messages", [])
+        return cast(list[dict[str, Any]], response_data.get("messages", []))
 
     async def _make_request(
         self,
@@ -181,9 +181,9 @@ class SlackClient:
                         error = data.get("error", "unknown_error")
                         raise SlackAPIError(error)
 
-                    return data
+                    return cast(dict[str, Any], data)
 
-                except (httpx.ConnectError, httpx.TimeoutException) as e:
+                except (httpx.ConnectError, httpx.TimeoutException):
                     network_attempts += 1
                     if network_attempts >= self.max_retries:
                         raise

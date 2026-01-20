@@ -10,7 +10,7 @@ This test suite verifies the Slack API client functionality including:
 These tests are written in TDD style (Red Phase) and will fail until implementation is complete.
 """
 
-from typing import Any
+# Removed unused import: typing.Any
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import httpx
@@ -415,7 +415,7 @@ class TestSlackAPIClient:
         - Detects when Slack API returns ok=False
         - Raises appropriate exception with error message
         """
-        from backend.plugins.slack_client import SlackClient
+        from backend.plugins.slack_client import SlackAPIError, SlackClient
 
         # Arrange
         client = SlackClient(api_token="xoxb-test-token")
@@ -432,7 +432,7 @@ class TestSlackAPIClient:
             mock_client.get.return_value = mock_response
 
             # Act & Assert
-            with pytest.raises(Exception) as exc_info:
+            with pytest.raises(SlackAPIError) as exc_info:
                 await client.conversations_list()
 
             # Should contain error message from Slack API
@@ -566,7 +566,8 @@ class TestSlackClientEdgeCases:
             with patch("asyncio.sleep", new_callable=AsyncMock):
                 # Act & Assert
                 # Should eventually give up and raise exception
-                with pytest.raises(Exception):
+                from backend.plugins.slack_client import SlackRateLimitError
+                with pytest.raises(SlackRateLimitError):
                     await client.conversations_list()
 
                 # Should have tried multiple times but not infinite
