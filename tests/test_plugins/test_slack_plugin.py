@@ -17,13 +17,8 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
+from backend.plugins.exceptions import ConfigurationError
 from backend.plugins.schemas import PluginConfig, PluginData
-
-
-class ConfigurationError(Exception):
-    """Exception raised when plugin configuration is invalid."""
-
-    pass
 
 
 class TestSlackPluginConfig:

@@ -10,7 +10,7 @@ It supports:
 """
 
 from datetime import datetime, timezone
-from typing import Any, Optional
+from typing import Any
 
 import httpx
 
@@ -98,7 +98,8 @@ class SlackPlugin(BasePlugin):
         response = await client.get(url, headers=headers)
         data = response.json()
 
-        return data.get("channels", [])
+        channels: list[dict[str, Any]] = data.get("channels", [])
+        return channels
 
     async def _get_messages(
         self, client: httpx.AsyncClient, channel_id: str
@@ -120,7 +121,8 @@ class SlackPlugin(BasePlugin):
         response = await client.get(url, headers=headers, params=params)
         data = response.json()
 
-        return data.get("messages", [])
+        messages: list[dict[str, Any]] = data.get("messages", [])
+        return messages
 
     def _convert_slack_timestamp(self, ts: str) -> datetime:
         """
