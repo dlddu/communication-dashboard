@@ -7,10 +7,22 @@ This module provides the core plugin system components:
 - PluginData: Data structure for plugin-fetched data
 - ValidationResult: Validation result type
 - MockPlugin: Mock plugin for testing
+- SlackPlugin: Slack integration plugin
+- ConfigurationError: Exception for invalid plugin configuration
 """
 
 from .base import BasePlugin
+from .exceptions import ConfigurationError
 from .mock_plugin import MockPlugin
 from .schemas import PluginConfig, PluginData, ValidationResult
+from .slack_plugin import SlackPlugin
 
-__all__ = ["BasePlugin", "MockPlugin", "PluginConfig", "PluginData", "ValidationResult"]
+__all__ = [
+    "BasePlugin",
+    "ConfigurationError",
+    "MockPlugin",
+    "PluginConfig",
+    "PluginData",
+    "SlackPlugin",
+    "ValidationResult",
+]
