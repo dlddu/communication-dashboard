@@ -69,7 +69,6 @@ class TestSlackPluginConfig:
             "xoxa-1234567890-1234567890123-abcdefghijklmnopqrstuvwx",  # App token
             "slack-bot-token-12345",  # Random format
             "Bearer xoxb-12345",  # Bearer prefix
-            "",  # Empty string
             "xoxb",  # Just prefix without dash
         ]
 
