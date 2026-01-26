@@ -12,6 +12,7 @@ dependencies = [
     "apscheduler>=3.10.0",
     "fastapi>=0.104.0",
     "uvicorn>=0.24.0",
+    "slack_sdk>=3.23.0",
 ]
 
 [project.optional-dependencies]
@@ -72,6 +73,10 @@ ignore_missing_imports = true
 
 [[tool.mypy.overrides]]
 module = "httpx.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "slack_sdk.*"
 ignore_missing_imports = true
 
 [tool.ruff]
