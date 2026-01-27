@@ -1,0 +1,551 @@
+{
+  "success": true,
+  "tests_created": [
+    {
+      "file": "/tmp/communication-dashboard/frontend/src/services/api.test.ts",
+      "action": "created",
+      "type": "unit",
+      "test_cases": [
+        {
+          "name": "should return plugins list when API call succeeds",
+          "description": "Tests successful API call to get plugins",
+          "category": "happy_path"
+        },
+        {
+          "name": "should throw error when API call fails",
+          "description": "Tests error handling for failed API calls",
+          "category": "error_case"
+        },
+        {
+          "name": "should handle network error",
+          "description": "Tests network error handling",
+          "category": "error_case"
+        },
+        {
+          "name": "should handle timeout",
+          "description": "Tests timeout error handling",
+          "category": "error_case"
+        },
+        {
+          "name": "should return empty array when no plugins available",
+          "description": "Tests empty result handling",
+          "category": "edge_case"
+        },
+        {
+          "name": "should return plugin data with default limit",
+          "description": "Tests getPluginData with default parameters",
+          "category": "happy_path"
+        },
+        {
+          "name": "should return plugin data with custom limit",
+          "description": "Tests getPluginData with custom limit parameter",
+          "category": "happy_path"
+        },
+        {
+          "name": "should throw error when plugin not found",
+          "description": "Tests 404 error handling",
+          "category": "error_case"
+        },
+        {
+          "name": "should handle malformed plugin name",
+          "description": "Tests invalid input handling",
+          "category": "edge_case"
+        },
+        {
+          "name": "should return success result when refresh succeeds",
+          "description": "Tests successful plugin refresh",
+          "category": "happy_path"
+        },
+        {
+          "name": "should return failure result when refresh fails",
+          "description": "Tests refresh failure handling",
+          "category": "error_case"
+        },
+        {
+          "name": "should throw error when plugin not configured",
+          "description": "Tests error for unconfigured plugin",
+          "category": "error_case"
+        },
+        {
+          "name": "should handle server error during refresh",
+          "description": "Tests server error during refresh",
+          "category": "error_case"
+        },
+        {
+          "name": "should have correct base URL",
+          "description": "Tests API client base URL configuration",
+          "category": "happy_path"
+        },
+        {
+          "name": "should include Content-Type header",
+          "description": "Tests API client header configuration",
+          "category": "happy_path"
+        }
+      ]
+    },
+    {
+      "file": "/tmp/communication-dashboard/frontend/src/hooks/usePlugins.test.ts",
+      "action": "created",
+      "type": "unit",
+      "test_cases": [
+        {
+          "name": "should start with loading true and empty plugins",
+          "description": "Tests initial hook state",
+          "category": "happy_path"
+        },
+        {
+          "name": "should fetch and set plugins on mount",
+          "description": "Tests data fetching on component mount",
+          "category": "happy_path"
+        },
+        {
+          "name": "should set loading to false after successful fetch",
+          "description": "Tests loading state update",
+          "category": "happy_path"
+        },
+        {
+          "name": "should handle empty plugins array",
+          "description": "Tests empty result handling",
+          "category": "edge_case"
+        },
+        {
+          "name": "should set error when fetch fails with Error",
+          "description": "Tests error state with Error object",
+          "category": "error_case"
+        },
+        {
+          "name": "should set generic error when fetch fails with non-Error",
+          "description": "Tests error state with non-Error value",
+          "category": "error_case"
+        },
+        {
+          "name": "should handle network errors",
+          "description": "Tests network error handling",
+          "category": "error_case"
+        },
+        {
+          "name": "should handle timeout errors",
+          "description": "Tests timeout error handling",
+          "category": "error_case"
+        },
+        {
+          "name": "should refetch plugins when refetch is called",
+          "description": "Tests manual refetch functionality",
+          "category": "happy_path"
+        },
+        {
+          "name": "should reset error state on refetch",
+          "description": "Tests error state reset on refetch",
+          "category": "happy_path"
+        },
+        {
+          "name": "should set loading to true during refetch",
+          "description": "Tests loading state during refetch",
+          "category": "happy_path"
+        },
+        {
+          "name": "should update plugins with new data on refetch",
+          "description": "Tests data update on refetch",
+          "category": "happy_path"
+        },
+        {
+          "name": "should handle multiple rapid refetch calls",
+          "description": "Tests multiple rapid refetch calls",
+          "category": "edge_case"
+        },
+        {
+          "name": "should maintain stable refetch function reference",
+          "description": "Tests function reference stability",
+          "category": "edge_case"
+        }
+      ]
+    },
+    {
+      "file": "/tmp/communication-dashboard/frontend/src/components/ui/Button.test.tsx",
+      "action": "created",
+      "type": "unit",
+      "test_cases": [
+        {
+          "name": "should render button with children text",
+          "description": "Tests basic button rendering",
+          "category": "happy_path"
+        },
+        {
+          "name": "should render with primary variant by default",
+          "description": "Tests default variant",
+          "category": "happy_path"
+        },
+        {
+          "name": "should render with secondary variant",
+          "description": "Tests secondary variant rendering",
+          "category": "happy_path"
+        },
+        {
+          "name": "should render with danger variant",
+          "description": "Tests danger variant rendering",
+          "category": "happy_path"
+        },
+        {
+          "name": "should apply custom className",
+          "description": "Tests custom className application",
+          "category": "happy_path"
+        },
+        {
+          "name": "should render with complex children",
+          "description": "Tests complex children rendering",
+          "category": "edge_case"
+        },
+        {
+          "name": "should show Loading text when loading is true",
+          "description": "Tests loading state text",
+          "category": "happy_path"
+        },
+        {
+          "name": "should disable button when loading",
+          "description": "Tests button disabled during loading",
+          "category": "happy_path"
+        },
+        {
+          "name": "should not show loading text when loading is false",
+          "description": "Tests normal state rendering",
+          "category": "happy_path"
+        },
+        {
+          "name": "should be disabled when disabled prop is true",
+          "description": "Tests disabled state",
+          "category": "happy_path"
+        },
+        {
+          "name": "should not be disabled by default",
+          "description": "Tests enabled state by default",
+          "category": "happy_path"
+        },
+        {
+          "name": "should be disabled when both disabled and loading are true",
+          "description": "Tests combined disabled and loading state",
+          "category": "edge_case"
+        },
+        {
+          "name": "should call onClick handler when clicked",
+          "description": "Tests click event handling",
+          "category": "happy_path"
+        },
+        {
+          "name": "should not call onClick when disabled",
+          "description": "Tests click prevention when disabled",
+          "category": "happy_path"
+        },
+        {
+          "name": "should not call onClick when loading",
+          "description": "Tests click prevention when loading",
+          "category": "happy_path"
+        },
+        {
+          "name": "should handle multiple clicks",
+          "description": "Tests multiple click events",
+          "category": "edge_case"
+        },
+        {
+          "name": "should support type attribute",
+          "description": "Tests HTML type attribute",
+          "category": "happy_path"
+        },
+        {
+          "name": "should support form attribute",
+          "description": "Tests HTML form attribute",
+          "category": "happy_path"
+        },
+        {
+          "name": "should support aria-label",
+          "description": "Tests ARIA label attribute",
+          "category": "happy_path"
+        },
+        {
+          "name": "should support data attributes",
+          "description": "Tests data-* attributes",
+          "category": "happy_path"
+        },
+        {
+          "name": "should handle empty children",
+          "description": "Tests empty children handling",
+          "category": "edge_case"
+        },
+        {
+          "name": "should handle null onClick",
+          "description": "Tests missing onClick handler",
+          "category": "edge_case"
+        },
+        {
+          "name": "should combine variant and custom classes",
+          "description": "Tests multiple className combination",
+          "category": "edge_case"
+        },
+        {
+          "name": "should be keyboard accessible",
+          "description": "Tests keyboard interaction",
+          "category": "happy_path"
+        },
+        {
+          "name": "should have button role",
+          "description": "Tests button role attribute",
+          "category": "happy_path"
+        },
+        {
+          "name": "should indicate disabled state to screen readers",
+          "description": "Tests disabled state accessibility",
+          "category": "happy_path"
+        }
+      ]
+    },
+    {
+      "file": "/tmp/communication-dashboard/frontend/src/components/ui/Card.test.tsx",
+      "action": "created",
+      "type": "unit",
+      "test_cases": [
+        {
+          "name": "should render card with children text",
+          "description": "Tests basic card rendering",
+          "category": "happy_path"
+        },
+        {
+          "name": "should apply default card class",
+          "description": "Tests default className",
+          "category": "happy_path"
+        },
+        {
+          "name": "should apply custom className",
+          "description": "Tests custom className application",
+          "category": "happy_path"
+        },
+        {
+          "name": "should render with empty className by default",
+          "description": "Tests default empty className",
+          "category": "edge_case"
+        },
+        {
+          "name": "should render simple text children",
+          "description": "Tests simple text rendering",
+          "category": "happy_path"
+        },
+        {
+          "name": "should render complex nested children",
+          "description": "Tests complex children structure",
+          "category": "happy_path"
+        },
+        {
+          "name": "should render multiple child elements",
+          "description": "Tests multiple children rendering",
+          "category": "happy_path"
+        },
+        {
+          "name": "should render React components as children",
+          "description": "Tests component children",
+          "category": "happy_path"
+        },
+        {
+          "name": "should render fragment children",
+          "description": "Tests React fragment children",
+          "category": "edge_case"
+        },
+        {
+          "name": "should combine multiple custom classes",
+          "description": "Tests multiple className combination",
+          "category": "happy_path"
+        },
+        {
+          "name": "should handle empty className prop",
+          "description": "Tests empty className handling",
+          "category": "edge_case"
+        },
+        {
+          "name": "should not override base card class",
+          "description": "Tests base class preservation",
+          "category": "edge_case"
+        },
+        {
+          "name": "should render as a div element",
+          "description": "Tests HTML element type",
+          "category": "happy_path"
+        },
+        {
+          "name": "should be a single root element",
+          "description": "Tests single root element structure",
+          "category": "happy_path"
+        },
+        {
+          "name": "should handle empty children",
+          "description": "Tests empty children handling",
+          "category": "edge_case"
+        },
+        {
+          "name": "should handle null children",
+          "description": "Tests null children handling",
+          "category": "edge_case"
+        },
+        {
+          "name": "should handle undefined children",
+          "description": "Tests undefined children handling",
+          "category": "edge_case"
+        },
+        {
+          "name": "should handle boolean children",
+          "description": "Tests boolean children handling",
+          "category": "edge_case"
+        },
+        {
+          "name": "should handle numeric children",
+          "description": "Tests numeric children rendering",
+          "category": "edge_case"
+        },
+        {
+          "name": "should handle array of children",
+          "description": "Tests array children mapping",
+          "category": "edge_case"
+        },
+        {
+          "name": "should preserve child element structure",
+          "description": "Tests child element structure preservation",
+          "category": "happy_path"
+        },
+        {
+          "name": "should render nested cards",
+          "description": "Tests nested card components",
+          "category": "edge_case"
+        },
+        {
+          "name": "should have accessible content",
+          "description": "Tests content accessibility",
+          "category": "happy_path"
+        },
+        {
+          "name": "should support ARIA attributes via className",
+          "description": "Tests ARIA attribute support",
+          "category": "happy_path"
+        }
+      ]
+    }
+  ],
+  "test_summary": {
+    "total_files": 4,
+    "total_test_cases": 78,
+    "new_test_cases": 78,
+    "modified_test_cases": 0,
+    "coverage_by_type": {
+      "unit": 78,
+      "integration": 0,
+      "e2e": 0
+    }
+  },
+  "configuration_files": [
+    {
+      "file": "/tmp/communication-dashboard/frontend/vitest.config.ts",
+      "action": "created",
+      "description": "Vitest configuration with jsdom environment and coverage settings"
+    },
+    {
+      "file": "/tmp/communication-dashboard/frontend/src/test/setup.ts",
+      "action": "created",
+      "description": "Test setup file with cleanup and environment mocks"
+    },
+    {
+      "file": "/tmp/communication-dashboard/frontend/package.json",
+      "action": "modified",
+      "changes": [
+        "Added test scripts (test, test:ui, test:coverage)",
+        "Added testing dependencies (vitest, @testing-library/react, jsdom, etc.)"
+      ]
+    },
+    {
+      "file": "/tmp/communication-dashboard/frontend/tsconfig.app.json",
+      "action": "modified",
+      "changes": [
+        "Added vitest/globals to types array"
+      ]
+    }
+  ],
+  "workflow_changes": {
+    "file": "/tmp/communication-dashboard/.github/workflows/test.yml",
+    "action": "modified",
+    "changes": [
+      "Split test job into test-backend and test-frontend",
+      "Added Node.js setup for frontend tests",
+      "Added frontend test execution steps",
+      "Added frontend coverage upload"
+    ]
+  },
+  "test_commands": {
+    "run_all": "npm test",
+    "run_watch": "npm test -- --watch",
+    "run_ui": "npm run test:ui",
+    "run_coverage": "npm run test:coverage",
+    "run_specific_file": "npm test -- src/services/api.test.ts",
+    "run_specific_pattern": "npm test -- --testNamePattern='should fetch plugins'"
+  },
+  "dependencies_needed": [
+    {
+      "name": "vitest",
+      "version": "^2.1.8",
+      "type": "devDependency",
+      "reason": "Test framework compatible with Vite"
+    },
+    {
+      "name": "@vitest/ui",
+      "version": "^2.1.8",
+      "type": "devDependency",
+      "reason": "UI for running tests interactively"
+    },
+    {
+      "name": "@vitest/coverage-v8",
+      "version": "^2.1.8",
+      "type": "devDependency",
+      "reason": "Coverage reporting with V8"
+    },
+    {
+      "name": "@testing-library/react",
+      "version": "^16.1.0",
+      "type": "devDependency",
+      "reason": "React component testing utilities"
+    },
+    {
+      "name": "@testing-library/jest-dom",
+      "version": "^6.6.3",
+      "type": "devDependency",
+      "reason": "Custom matchers for DOM assertions"
+    },
+    {
+      "name": "@testing-library/user-event",
+      "version": "^14.5.2",
+      "type": "devDependency",
+      "reason": "User interaction simulation"
+    },
+    {
+      "name": "jsdom",
+      "version": "^26.0.0",
+      "type": "devDependency",
+      "reason": "DOM implementation for testing"
+    },
+    {
+      "name": "axios-mock-adapter",
+      "version": "^2.1.0",
+      "type": "devDependency",
+      "reason": "Axios HTTP request mocking"
+    }
+  ],
+  "next_steps": [
+    "Run 'cd frontend && npm install' to install test dependencies",
+    "Run 'npm test' to verify all tests execute (they should fail initially - Red phase)",
+    "Implement the actual functionality to make tests pass (Green phase)",
+    "Refactor code while keeping tests passing (Refactor phase)"
+  ],
+  "notes": [
+    "Tests are in RED phase - they will fail until implementation is complete",
+    "This is expected TDD behavior: write failing tests first, then implement",
+    "All tests follow AAA pattern (Arrange, Act, Assert)",
+    "Tests include happy path, edge cases, and error handling",
+    "Mock adapters are used for API testing",
+    "React Testing Library is used for component testing",
+    "GitHub Actions workflow updated to run frontend tests automatically",
+    "Test coverage reporting is enabled",
+    "Test documentation provided in TEST_README.md"
+  ]
+}
