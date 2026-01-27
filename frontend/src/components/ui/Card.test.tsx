@@ -198,11 +198,15 @@ describe('Card', () => {
     });
 
     it('should handle boolean children', () => {
-      // Arrange & Act
-      const { container } = render(
+      // Arrange
+      const showVisible = true;
+      const showHidden = false;
+
+      // Act
+      render(
         <Card>
-          {true && <span>Visible</span>}
-          {false && <span>Hidden</span>}
+          {showVisible && <span>Visible</span>}
+          {showHidden && <span>Hidden</span>}
         </Card>
       );
 

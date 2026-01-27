@@ -196,7 +196,13 @@ describe('usePlugins', () => {
 
     it('should set loading to true during refetch', async () => {
       // Arrange
-      vi.mocked(pluginService.getPlugins).mockResolvedValue(mockPlugins);
+      let resolveGetPlugins: (value: PluginInfo[]) => void;
+      const pluginsPromise = new Promise<PluginInfo[]>((resolve) => {
+        resolveGetPlugins = resolve;
+      });
+      vi.mocked(pluginService.getPlugins)
+        .mockResolvedValueOnce(mockPlugins) // Initial fetch
+        .mockReturnValueOnce(pluginsPromise); // Refetch - controlled resolution
 
       // Act
       const { result } = renderHook(() => usePlugins());
@@ -208,10 +214,15 @@ describe('usePlugins', () => {
       // Start refetch
       const refetchPromise = result.current.refetch();
 
-      // Assert - Should be loading immediately
-      expect(result.current.loading).toBe(true);
+      // Assert - Should be loading during refetch
+      await waitFor(() => {
+        expect(result.current.loading).toBe(true);
+      });
 
+      // Resolve the refetch
+      resolveGetPlugins!(mockPlugins);
       await refetchPromise;
+
       await waitFor(() => {
         expect(result.current.loading).toBe(false);
       });

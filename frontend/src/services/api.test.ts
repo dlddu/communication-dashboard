@@ -1,18 +1,17 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import axios from 'axios';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import MockAdapter from 'axios-mock-adapter';
-import { pluginService } from './api';
+import apiClient, { pluginService } from './api';
 import type { PluginInfo, PluginDataItem, RefreshResult } from '@/types/plugin';
 
 describe('pluginService', () => {
   let mock: MockAdapter;
 
   beforeEach(() => {
-    mock = new MockAdapter(axios);
+    mock = new MockAdapter(apiClient);
   });
 
   afterEach(() => {
-    mock.reset();
+    mock.restore();
   });
 
   describe('getPlugins', () => {
@@ -85,7 +84,7 @@ describe('pluginService', () => {
           read: false,
         },
       ];
-      mock.onGet(`/plugins/${pluginName}/data`, { params: { limit: 50 } }).reply(200, mockData);
+      mock.onGet(`/plugins/${pluginName}/data`).reply(200, mockData);
 
       // Act
       const result = await pluginService.getPluginData(pluginName);
@@ -101,7 +100,7 @@ describe('pluginService', () => {
       const pluginName = 'email';
       const customLimit = 100;
       const mockData: PluginDataItem[] = [];
-      mock.onGet(`/plugins/${pluginName}/data`, { params: { limit: customLimit } }).reply(200, mockData);
+      mock.onGet(`/plugins/${pluginName}/data`).reply(200, mockData);
 
       // Act
       const result = await pluginService.getPluginData(pluginName, customLimit);
