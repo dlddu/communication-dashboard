@@ -22,7 +22,7 @@ export function SlackWidget() {
     if (content.length <= 150) {
       return content;
     }
-    return content.substring(0, 150) + '...';
+    return content.substring(0, 147) + '...';
   };
 
   const getSender = (message: PluginDataItem): string => {

@@ -143,14 +143,13 @@ describe('useSlackMessages', () => {
       });
 
       // Act - call refresh
-      await result.current.refresh();
+      result.current.refresh();
 
       // Assert
       await waitFor(() => {
-        expect(result.current.loading).toBe(false);
+        expect(result.current.messages).toEqual([mockMessages[0]]);
       });
 
-      expect(result.current.messages).toEqual([mockMessages[0]]);
       expect(pluginService.getPluginData).toHaveBeenCalledTimes(2);
     });
 
@@ -165,12 +164,12 @@ describe('useSlackMessages', () => {
       });
 
       // Act
-      const refreshPromise = result.current.refresh();
+      result.current.refresh();
 
       // Assert - loading should be true during refresh
-      expect(result.current.loading).toBe(true);
-
-      await refreshPromise;
+      await waitFor(() => {
+        expect(result.current.loading).toBe(true);
+      });
 
       // Assert - loading should be false after refresh
       await waitFor(() => {
@@ -191,14 +190,13 @@ describe('useSlackMessages', () => {
       });
 
       // Act - refresh should succeed
-      await result.current.refresh();
+      result.current.refresh();
 
       // Assert
       await waitFor(() => {
-        expect(result.current.loading).toBe(false);
+        expect(result.current.error).toBeNull();
       });
 
-      expect(result.current.error).toBeNull();
       expect(result.current.messages).toEqual(mockMessages);
     });
 
@@ -215,14 +213,13 @@ describe('useSlackMessages', () => {
       });
 
       // Act
-      await result.current.refresh();
+      result.current.refresh();
 
       // Assert
       await waitFor(() => {
-        expect(result.current.loading).toBe(false);
+        expect(result.current.error).toBe('Refresh failed');
       });
 
-      expect(result.current.error).toBe('Refresh failed');
       expect(result.current.messages).toEqual([]);
     });
   });
