@@ -154,14 +154,19 @@ describe('useSlackMessages', () => {
     });
 
     it('should set loading state during refresh', async () => {
-      // Arrange
-      vi.mocked(pluginService.getPluginData).mockResolvedValue(mockMessages);
+      // Arrange - initial load with immediate resolution
+      vi.mocked(pluginService.getPluginData).mockResolvedValueOnce(mockMessages);
 
       const { result } = renderHook(() => useSlackMessages());
 
       await waitFor(() => {
         expect(result.current.loading).toBe(false);
       });
+
+      // Arrange - refresh with delayed response to capture loading state
+      vi.mocked(pluginService.getPluginData).mockImplementationOnce(
+        () => new Promise(resolve => setTimeout(() => resolve(mockMessages), 100))
+      );
 
       // Act
       result.current.refresh();
