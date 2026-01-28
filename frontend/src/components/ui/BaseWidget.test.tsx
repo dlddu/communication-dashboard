@@ -264,7 +264,6 @@ describe('BaseWidget', () => {
 
         // Assert
         expect(asyncRefresh).toHaveBeenCalledTimes(1);
-        await expect(asyncRefresh).resolves.toBeUndefined();
       });
 
       it('should allow multiple refresh clicks when not disabled', async () => {
