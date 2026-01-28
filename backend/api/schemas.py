@@ -81,3 +81,87 @@ class ErrorResponse(BaseModel):
     model_config = ConfigDict(strict=True)
 
     detail: str
+
+
+class LayoutItemSchema(BaseModel):
+    """
+    Schema for a single layout item (widget).
+
+    Attributes:
+        i: Unique identifier for the grid item.
+        x: X position in grid units.
+        y: Y position in grid units.
+        w: Width in grid units.
+        h: Height in grid units.
+        minW: Minimum width in grid units (optional).
+        minH: Minimum height in grid units (optional).
+        maxW: Maximum width in grid units (optional).
+        maxH: Maximum height in grid units (optional).
+        static: Whether the item is static (optional).
+        isDraggable: Whether the item can be dragged (optional).
+        isResizable: Whether the item can be resized (optional).
+    """
+
+    model_config = ConfigDict(strict=True, extra='allow')
+
+    i: str
+    x: int
+    y: int
+    w: int
+    h: int
+    minW: Optional[int] = None
+    minH: Optional[int] = None
+    maxW: Optional[int] = None
+    maxH: Optional[int] = None
+    static: Optional[bool] = None
+    isDraggable: Optional[bool] = None
+    isResizable: Optional[bool] = None
+
+
+class ResponsiveLayoutsSchema(BaseModel):
+    """
+    Schema for responsive layouts across breakpoints.
+
+    Attributes:
+        lg: Layout for large screens.
+        md: Layout for medium screens.
+        sm: Layout for small screens.
+    """
+
+    model_config = ConfigDict(strict=True, extra='allow')
+
+    lg: list[LayoutItemSchema]
+    md: list[LayoutItemSchema]
+    sm: list[LayoutItemSchema]
+
+
+class LayoutSaveRequest(BaseModel):
+    """
+    Request schema for saving layout.
+
+    Attributes:
+        layout: The responsive layouts to save.
+    """
+
+    model_config = ConfigDict(strict=True)
+
+    layout: ResponsiveLayoutsSchema
+
+
+class LayoutResponse(BaseModel):
+    """
+    Response schema for layout endpoints.
+
+    Attributes:
+        layout: The responsive layouts.
+        last_updated: When the layout was last updated (optional).
+        timestamp: When the layout was last updated (optional).
+        success: Whether the operation was successful (for save operations).
+    """
+
+    model_config = ConfigDict(strict=True, extra='allow')
+
+    layout: ResponsiveLayoutsSchema
+    last_updated: Optional[datetime] = None
+    timestamp: Optional[datetime] = None
+    success: Optional[bool] = None
