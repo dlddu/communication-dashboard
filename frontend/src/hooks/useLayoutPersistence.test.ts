@@ -312,7 +312,9 @@ describe('useLayoutPersistence Hook', () => {
       await result.current.saveLayout(mockLayouts);
 
       // Assert
-      expect(result.current.error).toBe('Failed to save: storage quota exceeded');
+      await waitFor(() => {
+        expect(result.current.error).toBe('Failed to save: storage quota exceeded');
+      });
       setItemSpy.mockRestore();
     });
   });
@@ -342,10 +344,12 @@ describe('useLayoutPersistence Hook', () => {
       result.current.addWidget('widget-3', { w: 6, h: 2 });
 
       // Assert
-      expect(result.current.layouts.lg).toHaveLength(3);
-      expect(result.current.layouts.md).toHaveLength(3);
-      expect(result.current.layouts.sm).toHaveLength(3);
-      expect(result.current.layouts.lg.find((item) => item.i === 'widget-3')).toBeDefined();
+      await waitFor(() => {
+        expect(result.current.layouts.lg).toHaveLength(3);
+        expect(result.current.layouts.md).toHaveLength(3);
+        expect(result.current.layouts.sm).toHaveLength(3);
+        expect(result.current.layouts.lg.find((item) => item.i === 'widget-3')).toBeDefined();
+      });
     });
 
     it('should remove widget using removeWidget method', async () => {
@@ -367,8 +371,10 @@ describe('useLayoutPersistence Hook', () => {
       result.current.removeWidget('widget-2');
 
       // Assert
-      expect(result.current.layouts.lg).toHaveLength(2);
-      expect(result.current.layouts.lg.find((item) => item.i === 'widget-2')).toBeUndefined();
+      await waitFor(() => {
+        expect(result.current.layouts.lg).toHaveLength(2);
+        expect(result.current.layouts.lg.find((item) => item.i === 'widget-2')).toBeUndefined();
+      });
     });
 
     it('should not duplicate widgets when adding existing widget ID', async () => {
@@ -409,7 +415,9 @@ describe('useLayoutPersistence Hook', () => {
       await result.current.saveLayout(mockLayouts);
 
       // Assert
-      expect(result.current.error).toBe('Failed to save layout');
+      await waitFor(() => {
+        expect(result.current.error).toBe('Failed to save layout');
+      });
     });
 
     it('should clear error on successful save', async () => {

@@ -68,12 +68,13 @@ export function useLayoutPersistence(
         try {
           const backendLayouts = await layoutService.loadLayout(userId);
           setLayouts(backendLayouts);
-        } catch (backendError) {
+        } catch {
           // Fallback to localStorage
           const localLayouts = loadFromLocalStorage(userId);
           if (localLayouts) {
             setLayouts(localLayouts);
           } else {
+            setError('Failed to load layout from backend and localStorage');
             setLayouts({ lg: [], md: [], sm: [] });
           }
         }
@@ -115,7 +116,7 @@ export function useLayoutPersistence(
                 });
                 setError(null);
                 setLayouts(layoutsToSave);
-              } catch (backendError) {
+              } catch {
                 // Fallback to localStorage
                 try {
                   saveToLocalStorage(userId, layoutsToSave);
@@ -161,6 +162,7 @@ export function useLayoutPersistence(
 
   const addWidget = useCallback(
     (widgetId: string, defaultSize?: { w: number; h: number }) => {
+      const currentLayouts = useLayoutStore.getState().layouts;
       const newWidget: Partial<LayoutItem> = {
         i: widgetId,
         w: defaultSize?.w || 6,
@@ -169,13 +171,13 @@ export function useLayoutPersistence(
 
       const updatedLayouts: ResponsiveLayouts = {
         lg: deduplicateLayout(
-          addWidgetToLayout(layouts.lg, newWidget as Omit<LayoutItem, 'x' | 'y'>)
+          addWidgetToLayout(currentLayouts.lg, newWidget as Omit<LayoutItem, 'x' | 'y'>)
         ),
         md: deduplicateLayout(
-          addWidgetToLayout(layouts.md, newWidget as Omit<LayoutItem, 'x' | 'y'>)
+          addWidgetToLayout(currentLayouts.md, newWidget as Omit<LayoutItem, 'x' | 'y'>)
         ),
         sm: deduplicateLayout(
-          addWidgetToLayout(layouts.sm, newWidget as Omit<LayoutItem, 'x' | 'y'>)
+          addWidgetToLayout(currentLayouts.sm, newWidget as Omit<LayoutItem, 'x' | 'y'>)
         ),
       };
 
@@ -185,15 +187,16 @@ export function useLayoutPersistence(
         saveLayout(updatedLayouts);
       }
     },
-    [layouts, setLayouts, autoSave, saveLayout]
+    [setLayouts, autoSave, saveLayout]
   );
 
   const removeWidget = useCallback(
     (widgetId: string) => {
+      const currentLayouts = useLayoutStore.getState().layouts;
       const updatedLayouts: ResponsiveLayouts = {
-        lg: removeWidgetFromLayout(layouts.lg, widgetId),
-        md: removeWidgetFromLayout(layouts.md, widgetId),
-        sm: removeWidgetFromLayout(layouts.sm, widgetId),
+        lg: removeWidgetFromLayout(currentLayouts.lg, widgetId),
+        md: removeWidgetFromLayout(currentLayouts.md, widgetId),
+        sm: removeWidgetFromLayout(currentLayouts.sm, widgetId),
       };
 
       setLayouts(updatedLayouts);
@@ -202,7 +205,7 @@ export function useLayoutPersistence(
         saveLayout(updatedLayouts);
       }
     },
-    [layouts, setLayouts, autoSave, saveLayout]
+    [setLayouts, autoSave, saveLayout]
   );
 
   // Load layout on mount
