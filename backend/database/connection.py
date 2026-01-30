@@ -49,6 +49,7 @@ class DatabaseConnection:
 
         Creates:
         - plugin_data table with proper schema
+        - layouts table for storing user layouts
         - Indices on source and timestamp columns for performance
         """
         cursor = self._conn.cursor()
@@ -80,6 +81,17 @@ class DatabaseConnection:
             """
             CREATE INDEX IF NOT EXISTS idx_plugin_data_timestamp
             ON plugin_data(timestamp)
+            """
+        )
+
+        # Create layouts table
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS layouts (
+                user_id TEXT PRIMARY KEY,
+                layouts TEXT NOT NULL,
+                timestamp INTEGER NOT NULL
+            )
             """
         )
 

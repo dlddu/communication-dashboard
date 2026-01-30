@@ -81,3 +81,60 @@ class ErrorResponse(BaseModel):
     model_config = ConfigDict(strict=True)
 
     detail: str
+
+
+class LayoutData(BaseModel):
+    """
+    Layout configuration data model.
+
+    Attributes:
+        user_id: User identifier for the layout.
+        layouts: Layout configuration as a nested dictionary.
+        timestamp: When the layout was last saved.
+    """
+
+    model_config = ConfigDict(strict=True)
+
+    user_id: str
+    layouts: dict[str, Any]
+    timestamp: int
+
+
+class LayoutResponse(BaseModel):
+    """
+    Response model for layout retrieval.
+
+    Returns the layouts configuration directly.
+    """
+
+    model_config = ConfigDict(strict=True, extra="allow")
+
+
+class LayoutSaveRequest(BaseModel):
+    """
+    Request model for saving layout.
+
+    Attributes:
+        user_id: User identifier for the layout.
+        layouts: Layout configuration as a nested dictionary.
+        timestamp: When the layout was saved on client.
+    """
+
+    model_config = ConfigDict(strict=True)
+
+    user_id: str
+    layouts: dict[str, Any]
+    timestamp: int
+
+
+class LayoutSaveResponse(BaseModel):
+    """
+    Response model for layout save operation.
+
+    Attributes:
+        success: Whether the save operation was successful.
+    """
+
+    model_config = ConfigDict(strict=True)
+
+    success: bool

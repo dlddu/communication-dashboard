@@ -13,7 +13,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.api.dependencies import set_database
-from backend.api.routers import plugins
+from backend.api.routers import layouts, plugins
 from backend.database.connection import DatabaseConnection
 
 
@@ -67,6 +67,7 @@ app.add_middleware(
 
 # Register routers
 app.include_router(plugins.router)
+app.include_router(layouts.router)
 
 
 @app.get("/", tags=["health"])
