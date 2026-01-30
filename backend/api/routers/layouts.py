@@ -39,8 +39,8 @@ def get_layout_repository(
     description="Returns the saved layout configuration for a specific user.",
 )
 def get_layout(
-    user_id: str = Query(..., description="User ID to retrieve layout for"),
-    repo: LayoutRepository = Depends(get_layout_repository),
+    user_id: Annotated[str, Query(..., description="User ID to retrieve layout for")],
+    repo: Annotated[LayoutRepository, Depends(get_layout_repository)],
 ) -> dict[str, Any]:
     """
     Get saved layout for a user.
