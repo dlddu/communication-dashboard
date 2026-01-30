@@ -2,13 +2,14 @@
 Repository for PluginData CRUD operations.
 
 This module provides the PluginDataRepository class that handles all database
-operations for PluginData objects.
+operations for PluginData objects, and LayoutRepository for layout persistence.
 """
 
 import json
 from datetime import datetime, timedelta
 from typing import Any, Optional
 
+from backend.api.schemas import LayoutData
 from backend.database.connection import DatabaseConnection
 from backend.plugins.schemas import PluginData
 
@@ -345,3 +346,116 @@ class PluginDataRepository:
             metadata=metadata,
             read=read,
         )
+
+
+class LayoutRepository:
+    """
+    Repository for Layout CRUD operations.
+
+    This class provides:
+    - Save and update layout operations
+    - Query layouts by user ID
+    - JSON serialization/deserialization of layouts
+
+    Args:
+        db: DatabaseConnection instance
+
+    Example:
+        >>> db = DatabaseConnection(":memory:")
+        >>> repo = LayoutRepository(db)
+        >>> layouts = {"lg": [{"i": "widget-1", "x": 0, "y": 0, "w": 6, "h": 4}]}
+        >>> repo.save_layout("user-1", layouts, 1706600000000)
+    """
+
+    def __init__(self, db: DatabaseConnection) -> None:
+        """
+        Initialize repository with database connection.
+
+        Args:
+            db: DatabaseConnection instance
+        """
+        self.db = db
+
+    def save_layout(self, user_id: str, layouts: dict[str, Any], timestamp: int) -> LayoutData:
+        """
+        Save or update layout for a user.
+
+        Uses INSERT OR REPLACE to handle existing user IDs automatically.
+
+        Args:
+            user_id: User identifier
+            layouts: Layout configuration as nested dictionary
+            timestamp: Timestamp when layout was saved (milliseconds)
+
+        Returns:
+            The saved LayoutData instance
+
+        Example:
+            >>> layouts = {"lg": [{"i": "widget-1", "x": 0, "y": 0, "w": 6, "h": 4}]}
+            >>> result = repo.save_layout("user-1", layouts, 1706600000000)
+        """
+        with self.db.get_connection() as conn:
+            cursor = conn.cursor()
+
+            # Serialize layouts to JSON
+            layouts_json = json.dumps(layouts)
+
+            cursor.execute(
+                """
+                INSERT OR REPLACE INTO layouts
+                (user_id, layouts, timestamp)
+                VALUES (?, ?, ?)
+                """,
+                (user_id, layouts_json, timestamp),
+            )
+
+            conn.commit()
+
+            return LayoutData(
+                user_id=user_id,
+                layouts=layouts,
+                timestamp=timestamp,
+            )
+
+    def get_layout(self, user_id: str) -> Optional[LayoutData]:
+        """
+        Retrieve layout for a specific user.
+
+        Args:
+            user_id: User identifier
+
+        Returns:
+            LayoutData instance if found, None otherwise
+
+        Example:
+            >>> layout = repo.get_layout("user-1")
+            >>> if layout:
+            ...     print(layout.layouts)
+        """
+        with self.db.get_connection() as conn:
+            cursor = conn.cursor()
+
+            cursor.execute(
+                """
+                SELECT user_id, layouts, timestamp
+                FROM layouts
+                WHERE user_id = ?
+                """,
+                (user_id,),
+            )
+
+            row = cursor.fetchone()
+
+            if row is None:
+                return None
+
+            user_id_val, layouts_json, timestamp = row
+
+            # Deserialize layouts from JSON
+            layouts: dict[str, Any] = json.loads(layouts_json)
+
+            return LayoutData(
+                user_id=user_id_val,
+                layouts=layouts,
+                timestamp=timestamp,
+            )
