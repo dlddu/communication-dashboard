@@ -1,0 +1,55 @@
+# Test configuration fixture for E2E tests
+plugins:
+  - name: slack
+    enabled: true
+    config:
+      workspace: test-workspace
+      channel: general
+      token: xoxb-test-token
+
+  - name: gmail
+    enabled: true
+    config:
+      user_email: test@example.com
+      max_results: 50
+      credentials_path: /tmp/test_credentials.json
+
+  - name: linear
+    enabled: true
+    config:
+      api_key: lin_api_test_key
+      team_id: test-team-id
+      workspace: test-workspace
+
+  - name: github
+    enabled: true
+    config:
+      token: ghp_test_token
+      username: testuser
+      participating: true
+
+  - name: calendar
+    enabled: true
+    config:
+      calendar_id: primary
+      script_path: scripts/fetch_calendar.py
+      python_path: /usr/bin/python3
+
+database:
+  path: ~/.config/commdash/db/commdash.db
+
+refresh:
+  intervalMinutes: 15
+
+search:
+  enabled: true
+  indexing:
+    - title
+    - content
+  fts_algorithm: fts5
+
+embeddings:
+  enabled: true
+  model: all-MiniLM-L6-v2
+  dimension: 384
+  batch_size: 32

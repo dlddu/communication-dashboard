@@ -1,0 +1,88 @@
+{
+  "messages": [
+    {
+      "id": "1707654321.123456",
+      "text": "Hey team, reminder about the planning meeting today at 2pm 📅",
+      "user": "U123ABC456",
+      "username": "alice",
+      "timestamp": 1707654321.123456,
+      "channel": "C123GENERAL",
+      "channel_name": "general",
+      "thread_ts": null,
+      "reactions": [
+        {
+          "name": "thumbsup",
+          "count": 3,
+          "users": ["U123ABC456", "U456DEF789", "U789GHI012"]
+        }
+      ]
+    },
+    {
+      "id": "1707654400.789012",
+      "text": "Just pushed the new feature branch. Ready for review! 🎉",
+      "user": "U456DEF789",
+      "username": "bob",
+      "timestamp": 1707654400.789012,
+      "channel": "C456DEV",
+      "channel_name": "dev-team",
+      "thread_ts": null,
+      "reactions": [
+        {
+          "name": "eyes",
+          "count": 2,
+          "users": ["U123ABC456", "U789GHI012"]
+        },
+        {
+          "name": "rocket",
+          "count": 1,
+          "users": ["U789GHI012"]
+        }
+      ]
+    },
+    {
+      "id": "1707654500.345678",
+      "text": "Can someone help me with this bug? Getting timeout errors on the API",
+      "user": "U789GHI012",
+      "username": "charlie",
+      "timestamp": 1707654500.345678,
+      "channel": "C456DEV",
+      "channel_name": "dev-team",
+      "thread_ts": "1707654500.345678",
+      "reactions": []
+    },
+    {
+      "id": "1707654520.901234",
+      "text": "I can take a look. Which endpoint?",
+      "user": "U123ABC456",
+      "username": "alice",
+      "timestamp": 1707654520.901234,
+      "channel": "C456DEV",
+      "channel_name": "dev-team",
+      "thread_ts": "1707654500.345678",
+      "reactions": [
+        {
+          "name": "pray",
+          "count": 1,
+          "users": ["U789GHI012"]
+        }
+      ]
+    },
+    {
+      "id": "1707654600.567890",
+      "text": "Design review meeting notes: https://example.com/notes/feb-design-review",
+      "user": "U012JKL345",
+      "username": "diana",
+      "timestamp": 1707654600.567890,
+      "channel": "C789DESIGN",
+      "channel_name": "design",
+      "thread_ts": null,
+      "reactions": [
+        {
+          "name": "memo",
+          "count": 4,
+          "users": ["U123ABC456", "U456DEF789", "U789GHI012", "U345MNO678"]
+        }
+      ]
+    }
+  ]
+}

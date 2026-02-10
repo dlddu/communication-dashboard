@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct CommunicationDashboardApp: App {
+struct CommunicationDashboardMainApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

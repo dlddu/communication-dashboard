@@ -1,0 +1,233 @@
+{
+  "issues": [
+    {
+      "id": "LIN-123",
+      "identifier": "PROJ-123",
+      "title": "Fix API timeout bug on production",
+      "description": "Users are experiencing timeout errors when calling the /api/data endpoint. Need to investigate and fix ASAP.\n\nSteps to reproduce:\n1. Call /api/data with large dataset\n2. Wait for response\n3. Request times out after 30s",
+      "state": "in_progress",
+      "priority": 1,
+      "priorityLabel": "Urgent",
+      "createdAt": "2026-02-09T10:00:00Z",
+      "updatedAt": "2026-02-10T11:20:00Z",
+      "assignee": {
+        "id": "user-123",
+        "name": "Test User",
+        "email": "test@example.com",
+        "avatarUrl": "https://avatar.linear.app/user-123"
+      },
+      "creator": {
+        "id": "user-789",
+        "name": "Charlie",
+        "email": "charlie@example.com"
+      },
+      "labels": [
+        "bug",
+        "backend",
+        "high-priority"
+      ],
+      "team": {
+        "id": "team-456",
+        "name": "Engineering"
+      },
+      "project": {
+        "id": "proj-789",
+        "name": "Q1 2026"
+      },
+      "estimate": 3,
+      "cycle": null
+    },
+    {
+      "id": "LIN-124",
+      "identifier": "PROJ-124",
+      "title": "Implement new user dashboard",
+      "description": "Create a new dashboard view for users with the following sections:\n- Recent activity\n- Quick actions\n- Analytics overview\n- Notifications",
+      "state": "todo",
+      "priority": 2,
+      "priorityLabel": "High",
+      "createdAt": "2026-02-08T14:30:00Z",
+      "updatedAt": "2026-02-10T09:00:00Z",
+      "assignee": {
+        "id": "user-456",
+        "name": "Alice",
+        "email": "alice@example.com",
+        "avatarUrl": "https://avatar.linear.app/user-456"
+      },
+      "creator": {
+        "id": "user-012",
+        "name": "Diana",
+        "email": "diana@example.com"
+      },
+      "labels": [
+        "feature",
+        "frontend",
+        "design-ready"
+      ],
+      "team": {
+        "id": "team-456",
+        "name": "Engineering"
+      },
+      "project": {
+        "id": "proj-789",
+        "name": "Q1 2026"
+      },
+      "estimate": 5,
+      "cycle": {
+        "id": "cycle-001",
+        "name": "Sprint 5",
+        "startsAt": "2026-02-10T00:00:00Z",
+        "endsAt": "2026-02-23T23:59:59Z"
+      }
+    },
+    {
+      "id": "LIN-125",
+      "identifier": "PROJ-125",
+      "title": "Update dependencies to latest versions",
+      "description": "Several dependencies are outdated and have security vulnerabilities. Need to update:\n- react: 17.0.2 → 18.2.0\n- axios: 0.21.1 → 1.6.5\n- typescript: 4.5.0 → 5.3.3",
+      "state": "todo",
+      "priority": 3,
+      "priorityLabel": "Medium",
+      "createdAt": "2026-02-07T11:00:00Z",
+      "updatedAt": "2026-02-07T11:00:00Z",
+      "assignee": {
+        "id": "user-789",
+        "name": "Bob",
+        "email": "bob@example.com",
+        "avatarUrl": "https://avatar.linear.app/user-789"
+      },
+      "creator": {
+        "id": "user-456",
+        "name": "Alice",
+        "email": "alice@example.com"
+      },
+      "labels": [
+        "maintenance",
+        "security",
+        "dependencies"
+      ],
+      "team": {
+        "id": "team-456",
+        "name": "Engineering"
+      },
+      "project": {
+        "id": "proj-789",
+        "name": "Q1 2026"
+      },
+      "estimate": 2,
+      "cycle": {
+        "id": "cycle-001",
+        "name": "Sprint 5",
+        "startsAt": "2026-02-10T00:00:00Z",
+        "endsAt": "2026-02-23T23:59:59Z"
+      }
+    },
+    {
+      "id": "LIN-120",
+      "identifier": "PROJ-120",
+      "title": "Add dark mode support",
+      "description": "Implement dark mode theme throughout the application. Should respect system preferences by default.",
+      "state": "done",
+      "priority": 3,
+      "priorityLabel": "Medium",
+      "createdAt": "2026-01-15T10:00:00Z",
+      "updatedAt": "2026-02-05T16:30:00Z",
+      "completedAt": "2026-02-05T16:30:00Z",
+      "assignee": {
+        "id": "user-012",
+        "name": "Diana",
+        "email": "diana@example.com",
+        "avatarUrl": "https://avatar.linear.app/user-012"
+      },
+      "creator": {
+        "id": "user-456",
+        "name": "Alice",
+        "email": "alice@example.com"
+      },
+      "labels": [
+        "feature",
+        "frontend",
+        "design",
+        "completed"
+      ],
+      "team": {
+        "id": "team-456",
+        "name": "Engineering"
+      },
+      "project": {
+        "id": "proj-789",
+        "name": "Q1 2026"
+      },
+      "estimate": 3,
+      "cycle": {
+        "id": "cycle-000",
+        "name": "Sprint 4",
+        "startsAt": "2026-01-27T00:00:00Z",
+        "endsAt": "2026-02-09T23:59:59Z"
+      }
+    },
+    {
+      "id": "LIN-126",
+      "identifier": "PROJ-126",
+      "title": "Write API documentation",
+      "description": "Document all API endpoints with examples, request/response formats, and authentication details.",
+      "state": "todo",
+      "priority": 3,
+      "priorityLabel": "Medium",
+      "createdAt": "2026-02-10T08:00:00Z",
+      "updatedAt": "2026-02-10T08:00:00Z",
+      "assignee": null,
+      "creator": {
+        "id": "user-789",
+        "name": "Bob",
+        "email": "bob@example.com"
+      },
+      "labels": [
+        "documentation",
+        "backend"
+      ],
+      "team": {
+        "id": "team-456",
+        "name": "Engineering"
+      },
+      "project": {
+        "id": "proj-789",
+        "name": "Q1 2026"
+      },
+      "estimate": 2,
+      "cycle": null
+    },
+    {
+      "id": "LIN-122",
+      "identifier": "PROJ-122",
+      "title": "Performance optimization for search",
+      "description": "Search is slow when dealing with large datasets. Need to:\n1. Add database indexes\n2. Implement caching\n3. Optimize query performance",
+      "state": "canceled",
+      "priority": 4,
+      "priorityLabel": "Low",
+      "createdAt": "2026-01-20T09:00:00Z",
+      "updatedAt": "2026-02-08T14:00:00Z",
+      "canceledAt": "2026-02-08T14:00:00Z",
+      "assignee": null,
+      "creator": {
+        "id": "user-789",
+        "name": "Charlie",
+        "email": "charlie@example.com"
+      },
+      "labels": [
+        "performance",
+        "backend",
+        "wontfix"
+      ],
+      "team": {
+        "id": "team-456",
+        "name": "Engineering"
+      },
+      "project": {
+        "id": "proj-789",
+        "name": "Q1 2026"
+      },
+      "estimate": 5,
+      "cycle": null
+    }
+  ]
+}

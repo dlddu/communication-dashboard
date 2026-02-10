@@ -1,0 +1,172 @@
+{
+  "notifications": [
+    {
+      "id": "12345678901",
+      "unread": true,
+      "reason": "review_requested",
+      "updatedAt": "2026-02-10T08:15:00Z",
+      "lastReadAt": null,
+      "subject": {
+        "title": "Add new feature",
+        "url": "https://api.github.com/repos/company/project/pulls/42",
+        "latestCommentUrl": "https://api.github.com/repos/company/project/pulls/42/comments/789",
+        "type": "PullRequest"
+      },
+      "repository": {
+        "id": 123456789,
+        "name": "project",
+        "fullName": "company/project",
+        "owner": "company",
+        "private": true,
+        "htmlUrl": "https://github.com/company/project",
+        "description": "Main company project"
+      },
+      "url": "https://api.github.com/notifications/threads/12345678901",
+      "subscriptionUrl": "https://api.github.com/notifications/threads/12345678901/subscription"
+    },
+    {
+      "id": "12345678902",
+      "unread": true,
+      "reason": "mention",
+      "updatedAt": "2026-02-10T09:45:00Z",
+      "lastReadAt": "2026-02-09T10:00:00Z",
+      "subject": {
+        "title": "Bug: API timeout on production",
+        "url": "https://api.github.com/repos/company/project/issues/156",
+        "latestCommentUrl": "https://api.github.com/repos/company/project/issues/156/comments/1234",
+        "type": "Issue"
+      },
+      "repository": {
+        "id": 123456789,
+        "name": "project",
+        "fullName": "company/project",
+        "owner": "company",
+        "private": true,
+        "htmlUrl": "https://github.com/company/project",
+        "description": "Main company project"
+      },
+      "url": "https://api.github.com/notifications/threads/12345678902",
+      "subscriptionUrl": "https://api.github.com/notifications/threads/12345678902/subscription"
+    },
+    {
+      "id": "12345678903",
+      "unread": true,
+      "reason": "assign",
+      "updatedAt": "2026-02-10T11:20:00Z",
+      "lastReadAt": null,
+      "subject": {
+        "title": "Update documentation for API v2",
+        "url": "https://api.github.com/repos/company/project/issues/178",
+        "latestCommentUrl": null,
+        "type": "Issue"
+      },
+      "repository": {
+        "id": 123456789,
+        "name": "project",
+        "fullName": "company/project",
+        "owner": "company",
+        "private": true,
+        "htmlUrl": "https://github.com/company/project",
+        "description": "Main company project"
+      },
+      "url": "https://api.github.com/notifications/threads/12345678903",
+      "subscriptionUrl": "https://api.github.com/notifications/threads/12345678903/subscription"
+    },
+    {
+      "id": "12345678904",
+      "unread": false,
+      "reason": "comment",
+      "updatedAt": "2026-02-09T16:30:00Z",
+      "lastReadAt": "2026-02-09T17:00:00Z",
+      "subject": {
+        "title": "Implement dark mode support",
+        "url": "https://api.github.com/repos/company/project/pulls/35",
+        "latestCommentUrl": "https://api.github.com/repos/company/project/pulls/35/comments/567",
+        "type": "PullRequest"
+      },
+      "repository": {
+        "id": 123456789,
+        "name": "project",
+        "fullName": "company/project",
+        "owner": "company",
+        "private": true,
+        "htmlUrl": "https://github.com/company/project",
+        "description": "Main company project"
+      },
+      "url": "https://api.github.com/notifications/threads/12345678904",
+      "subscriptionUrl": "https://api.github.com/notifications/threads/12345678904/subscription"
+    },
+    {
+      "id": "12345678905",
+      "unread": true,
+      "reason": "subscribed",
+      "updatedAt": "2026-02-10T07:00:00Z",
+      "lastReadAt": "2026-02-08T10:00:00Z",
+      "subject": {
+        "title": "Q1 2026 Planning Discussion",
+        "url": "https://api.github.com/repos/company/project/issues/145",
+        "latestCommentUrl": "https://api.github.com/repos/company/project/issues/145/comments/2345",
+        "type": "Issue"
+      },
+      "repository": {
+        "id": 123456789,
+        "name": "project",
+        "fullName": "company/project",
+        "owner": "company",
+        "private": true,
+        "htmlUrl": "https://github.com/company/project",
+        "description": "Main company project"
+      },
+      "url": "https://api.github.com/notifications/threads/12345678905",
+      "subscriptionUrl": "https://api.github.com/notifications/threads/12345678905/subscription"
+    },
+    {
+      "id": "12345678906",
+      "unread": true,
+      "reason": "review_requested",
+      "updatedAt": "2026-02-10T13:00:00Z",
+      "lastReadAt": null,
+      "subject": {
+        "title": "Fix: Memory leak in background sync",
+        "url": "https://api.github.com/repos/company/mobile-app/pulls/89",
+        "latestCommentUrl": null,
+        "type": "PullRequest"
+      },
+      "repository": {
+        "id": 987654321,
+        "name": "mobile-app",
+        "fullName": "company/mobile-app",
+        "owner": "company",
+        "private": true,
+        "htmlUrl": "https://github.com/company/mobile-app",
+        "description": "Company mobile application"
+      },
+      "url": "https://api.github.com/notifications/threads/12345678906",
+      "subscriptionUrl": "https://api.github.com/notifications/threads/12345678906/subscription"
+    },
+    {
+      "id": "12345678907",
+      "unread": false,
+      "reason": "mention",
+      "updatedAt": "2026-02-09T14:20:00Z",
+      "lastReadAt": "2026-02-09T15:00:00Z",
+      "subject": {
+        "title": "Dependency updates - February 2026",
+        "url": "https://api.github.com/repos/company/project/pulls/40",
+        "latestCommentUrl": "https://api.github.com/repos/company/project/pulls/40/comments/890",
+        "type": "PullRequest"
+      },
+      "repository": {
+        "id": 123456789,
+        "name": "project",
+        "fullName": "company/project",
+        "owner": "company",
+        "private": true,
+        "htmlUrl": "https://github.com/company/project",
+        "description": "Main company project"
+      },
+      "url": "https://api.github.com/notifications/threads/12345678907",
+      "subscriptionUrl": "https://api.github.com/notifications/threads/12345678907/subscription"
+    }
+  ]
+}

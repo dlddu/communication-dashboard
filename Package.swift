@@ -29,9 +29,13 @@ let package = Package(
             name: "CommunicationDashboardTests",
             dependencies: [
                 "CommunicationDashboard",
-                .product(name: "GRDB", package: "GRDB.swift")
+                .product(name: "GRDB", package: "GRDB.swift"),
+                .product(name: "Yams", package: "Yams")
             ],
-            path: "Tests/CommunicationDashboardTests"
+            path: "Tests/CommunicationDashboardTests",
+            resources: [
+                .copy("Fixtures")
+            ]
         )
     ]
 )

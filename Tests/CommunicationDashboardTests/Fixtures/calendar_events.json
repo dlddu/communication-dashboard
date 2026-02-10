@@ -1,0 +1,223 @@
+{
+  "events": [
+    {
+      "id": "event_abc123",
+      "title": "Design Review",
+      "description": "Review the new dashboard design with the team. Bring feedback on the latest mockups.",
+      "startTime": "2026-02-10T14:00:00Z",
+      "endTime": "2026-02-10T15:00:00Z",
+      "location": "Conference Room B",
+      "attendees": [
+        {
+          "email": "test@example.com",
+          "name": "Test User",
+          "responseStatus": "accepted",
+          "organizer": true
+        },
+        {
+          "email": "alice@example.com",
+          "name": "Alice",
+          "responseStatus": "accepted",
+          "organizer": false
+        },
+        {
+          "email": "diana@example.com",
+          "name": "Diana",
+          "responseStatus": "accepted",
+          "organizer": false
+        },
+        {
+          "email": "bob@example.com",
+          "name": "Bob",
+          "responseStatus": "tentative",
+          "organizer": false
+        }
+      ],
+      "recurring": false,
+      "meetingLink": "https://meet.example.com/abc-123-def"
+    },
+    {
+      "id": "event_def456",
+      "title": "Sprint Planning",
+      "description": "Planning session for Sprint 5. Review backlog and assign tasks for the next two weeks.",
+      "startTime": "2026-02-11T10:00:00Z",
+      "endTime": "2026-02-11T12:00:00Z",
+      "location": null,
+      "attendees": [
+        {
+          "email": "alice@example.com",
+          "name": "Alice",
+          "responseStatus": "accepted",
+          "organizer": true
+        },
+        {
+          "email": "test@example.com",
+          "name": "Test User",
+          "responseStatus": "accepted",
+          "organizer": false
+        },
+        {
+          "email": "bob@example.com",
+          "name": "Bob",
+          "responseStatus": "accepted",
+          "organizer": false
+        },
+        {
+          "email": "charlie@example.com",
+          "name": "Charlie",
+          "responseStatus": "accepted",
+          "organizer": false
+        }
+      ],
+      "recurring": true,
+      "recurrenceRule": "FREQ=WEEKLY;BYDAY=MO;INTERVAL=2",
+      "meetingLink": "https://zoom.us/j/1234567890"
+    },
+    {
+      "id": "event_ghi789",
+      "title": "1:1 with Manager",
+      "description": "Weekly one-on-one check-in",
+      "startTime": "2026-02-12T15:00:00Z",
+      "endTime": "2026-02-12T15:30:00Z",
+      "location": null,
+      "attendees": [
+        {
+          "email": "test@example.com",
+          "name": "Test User",
+          "responseStatus": "accepted",
+          "organizer": false
+        },
+        {
+          "email": "manager@example.com",
+          "name": "Manager",
+          "responseStatus": "accepted",
+          "organizer": true
+        }
+      ],
+      "recurring": true,
+      "recurrenceRule": "FREQ=WEEKLY;BYDAY=WE",
+      "meetingLink": "https://meet.example.com/ghi-789-jkl"
+    },
+    {
+      "id": "event_jkl012",
+      "title": "Company All-Hands",
+      "description": "Q1 all-hands meeting covering company updates, roadmap, and Q&A session",
+      "startTime": "2026-02-15T18:00:00Z",
+      "endTime": "2026-02-15T19:00:00Z",
+      "location": "Main Auditorium / Zoom",
+      "attendees": [
+        {
+          "email": "all@company.com",
+          "name": "All Company",
+          "responseStatus": "needsAction",
+          "organizer": false
+        },
+        {
+          "email": "hr@company.com",
+          "name": "HR Team",
+          "responseStatus": "accepted",
+          "organizer": true
+        }
+      ],
+      "recurring": false,
+      "meetingLink": "https://zoom.us/j/9876543210"
+    },
+    {
+      "id": "event_mno345",
+      "title": "Team Lunch",
+      "description": "Casual team lunch to celebrate the successful Q1 launch 🎉",
+      "startTime": "2026-02-13T12:00:00Z",
+      "endTime": "2026-02-13T13:30:00Z",
+      "location": "The Local Cafe, 123 Main St",
+      "attendees": [
+        {
+          "email": "test@example.com",
+          "name": "Test User",
+          "responseStatus": "accepted",
+          "organizer": false
+        },
+        {
+          "email": "alice@example.com",
+          "name": "Alice",
+          "responseStatus": "accepted",
+          "organizer": false
+        },
+        {
+          "email": "bob@example.com",
+          "name": "Bob",
+          "responseStatus": "accepted",
+          "organizer": false
+        },
+        {
+          "email": "charlie@example.com",
+          "name": "Charlie",
+          "responseStatus": "declined",
+          "organizer": false
+        },
+        {
+          "email": "diana@example.com",
+          "name": "Diana",
+          "responseStatus": "accepted",
+          "organizer": true
+        }
+      ],
+      "recurring": false,
+      "meetingLink": null
+    },
+    {
+      "id": "event_pqr678",
+      "title": "Code Review Session",
+      "description": "Team code review and knowledge sharing session. Topics: API refactoring, testing best practices",
+      "startTime": "2026-02-14T16:00:00Z",
+      "endTime": "2026-02-14T17:00:00Z",
+      "location": null,
+      "attendees": [
+        {
+          "email": "bob@example.com",
+          "name": "Bob",
+          "responseStatus": "accepted",
+          "organizer": true
+        },
+        {
+          "email": "test@example.com",
+          "name": "Test User",
+          "responseStatus": "accepted",
+          "organizer": false
+        },
+        {
+          "email": "alice@example.com",
+          "name": "Alice",
+          "responseStatus": "tentative",
+          "organizer": false
+        },
+        {
+          "email": "charlie@example.com",
+          "name": "Charlie",
+          "responseStatus": "accepted",
+          "organizer": false
+        }
+      ],
+      "recurring": true,
+      "recurrenceRule": "FREQ=WEEKLY;BYDAY=FR",
+      "meetingLink": "https://meet.example.com/pqr-678-stu"
+    },
+    {
+      "id": "event_stu901",
+      "title": "Focus Time",
+      "description": "Blocked time for deep work on API timeout bug fix",
+      "startTime": "2026-02-10T09:00:00Z",
+      "endTime": "2026-02-10T12:00:00Z",
+      "location": null,
+      "attendees": [
+        {
+          "email": "test@example.com",
+          "name": "Test User",
+          "responseStatus": "accepted",
+          "organizer": true
+        }
+      ],
+      "recurring": false,
+      "meetingLink": null
+    }
+  ]
+}
