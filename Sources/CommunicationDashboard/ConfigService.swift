@@ -2,7 +2,7 @@ import Foundation
 
 /// Service responsible for managing configuration directories
 public class ConfigService {
-    enum ConfigError: Error {
+    public enum ConfigError: Error {
         case notInitialized
         case invalidPath
         case initializationFailed(Error)
@@ -10,7 +10,7 @@ public class ConfigService {
         case creationFailed(path: String, underlying: Error)
     }
 
-    enum SubdirectoryType: String, CaseIterable {
+    public enum SubdirectoryType: String, CaseIterable {
         case db
         case models
         case cache

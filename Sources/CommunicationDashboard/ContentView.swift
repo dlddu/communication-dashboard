@@ -14,11 +14,22 @@ struct ContentView: View {
             if let selection {
                 Text("Selected: \(selection)")
             } else {
-                ContentUnavailableView(
-                    "No Selection",
-                    systemImage: "sidebar.left",
-                    description: Text("Select an item from the sidebar")
-                )
+                if #available(macOS 14.0, *) {
+                    ContentUnavailableView(
+                        "No Selection",
+                        systemImage: "sidebar.left",
+                        description: Text("Select an item from the sidebar")
+                    )
+                } else {
+                    VStack {
+                        Image(systemName: "sidebar.left")
+                            .font(.largeTitle)
+                        Text("No Selection")
+                            .font(.title)
+                        Text("Select an item from the sidebar")
+                            .foregroundColor(.secondary)
+                    }
+                }
             }
         }
     }
