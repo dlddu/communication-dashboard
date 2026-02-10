@@ -1,0 +1,47 @@
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# Xcode
+*.xcodeproj
+*.xcworkspace
+xcuserdata/
+DerivedData/
+*.xccheckout
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Code coverage
+*.profdata
+*.profraw
+coverage.lcov
+*.gcda
+*.gcno
+
+# Testing
+.build/
+*.xcresult
+
+# SPM
+.swiftpm/xcode/package.xcworkspace/
+
+# Swift
+*.swiftmodule
+*.swiftdoc
+
+# Configuration directories (for development)
+.config/
+
+# Logs
+logs/
+*.log
