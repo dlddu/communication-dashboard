@@ -230,6 +230,7 @@ final class AppStructureTests: XCTestCase {
         XCTAssertNotNil(view, "ContentView should handle nil selection state")
     }
 
+    @available(macOS 14.0, *)
     func testContentViewCanDisplayEmptyState() {
         // Arrange
         struct EmptyStateView: View {

@@ -176,7 +176,7 @@ final class DatabaseManagerTests: XCTestCase {
         try dbQueue.read { db in
             let primaryKey = try db.primaryKey("items")
             XCTAssertNotNil(primaryKey, "items table should have a primary key")
-            XCTAssertEqual(primaryKey?.columns, ["id"], "Primary key should be on id column")
+            XCTAssertEqual(primaryKey.columns, ["id"], "Primary key should be on id column")
         }
     }
 
