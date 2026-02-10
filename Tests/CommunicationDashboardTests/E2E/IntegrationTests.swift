@@ -105,7 +105,7 @@ final class IntegrationTests: XCTestCase {
 
         // Assert
         let dbQueue = try databaseManager.getDatabaseQueue()
-        let itemCount = try dbQueue.read { db in
+        let itemCount = try await dbQueue.read { db in
             try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM items")
         }
 
@@ -212,7 +212,7 @@ final class IntegrationTests: XCTestCase {
         let gmailMessages = try await gmailPlugin.fetchMessages()
 
         // Persist to database
-        try dbQueue.write { db in
+        try await dbQueue.write { db in
             for message in slackMessages {
                 try db.execute(
                     sql: "INSERT INTO items (title, content, created_at, updated_at) VALUES (?, ?, ?, ?)",
@@ -229,7 +229,7 @@ final class IntegrationTests: XCTestCase {
         }
 
         // Assert
-        let totalCount = try dbQueue.read { db in
+        let totalCount = try await dbQueue.read { db in
             try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM items")
         }
 
@@ -253,7 +253,7 @@ final class IntegrationTests: XCTestCase {
         let dbQueue = try databaseManager.getDatabaseQueue()
 
         // Act
-        let searchResults = try dbQueue.read { db in
+        let searchResults = try await dbQueue.read { db in
             try Row.fetchAll(db, sql: "SELECT * FROM items_fts WHERE items_fts MATCH 'meeting'")
         }
 
@@ -327,8 +327,8 @@ final class IntegrationTests: XCTestCase {
         let dbQueue = try databaseManager.getDatabaseQueue()
 
         // Act & Assert
-        XCTAssertThrowsError(
-            try dbQueue.write { db in
+        do {
+            try await dbQueue.write { db in
                 try db.execute(
                     sql: "INSERT INTO items (title, content, created_at, updated_at) VALUES (?, ?, ?, ?)",
                     arguments: ["Test", "Content", Date(), Date()]
@@ -336,10 +336,13 @@ final class IntegrationTests: XCTestCase {
                 // Simulate error
                 try db.execute(sql: "INVALID SQL")
             }
-        )
+            XCTFail("Should have thrown an error")
+        } catch {
+            // Expected error
+        }
 
         // Verify rollback
-        let count = try dbQueue.read { db in
+        let count = try await dbQueue.read { db in
             try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM items")
         }
         XCTAssertEqual(count, 0, "Should rollback on error")
@@ -347,7 +350,7 @@ final class IntegrationTests: XCTestCase {
 
     // MARK: - Performance Tests
 
-    func testBulkDataIngestionPerformance() async throws {
+    func testBulkDataIngestionPerformance() throws {
         // Arrange
         let app = CommunicationDashboardApp(
             database: databaseManager,
@@ -358,11 +361,17 @@ final class IntegrationTests: XCTestCase {
 
         // Measure
         measure {
-            do {
-                try await app.refreshAllPlugins()
-            } catch {
-                XCTFail("Performance test failed: \(error)")
+            let expectation = self.expectation(description: "Refresh all plugins")
+            Task {
+                do {
+                    try await app.refreshAllPlugins()
+                    expectation.fulfill()
+                } catch {
+                    XCTFail("Performance test failed: \(error)")
+                    expectation.fulfill()
+                }
             }
+            wait(for: [expectation], timeout: 10.0)
         }
     }
 

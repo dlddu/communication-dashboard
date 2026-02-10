@@ -7,8 +7,19 @@ final class AppStructureTests: XCTestCase {
     // MARK: - App Lifecycle Tests
 
     func testCommunicationDashboardAppExists() {
+        // Arrange
+        let database = DatabaseManager(inMemory: true)
+        let config = ConfigService(baseDirectory: FileManager.default.temporaryDirectory)
+        let httpClient = MockHTTPClient()
+        let shellExecutor = MockShellExecutor()
+
         // Act
-        let app = CommunicationDashboardApp()
+        let app = CommunicationDashboardApp(
+            database: database,
+            config: config,
+            httpClient: httpClient,
+            shellExecutor: shellExecutor
+        )
 
         // Assert
         XCTAssertNotNil(app, "CommunicationDashboardApp should be instantiable")
@@ -17,14 +28,14 @@ final class AppStructureTests: XCTestCase {
     func testAppConformsToAppProtocol() {
         // Assert
         XCTAssertTrue(
-            CommunicationDashboardApp.self is any App.Type,
-            "CommunicationDashboardApp should conform to App protocol"
+            CommunicationDashboardMainApp.self is any App.Type,
+            "CommunicationDashboardMainApp should conform to App protocol"
         )
     }
 
     func testAppHasBodyProperty() {
         // Arrange
-        let app = CommunicationDashboardApp()
+        let app = CommunicationDashboardMainApp()
 
         // Act
         let body = app.body
@@ -79,7 +90,7 @@ final class AppStructureTests: XCTestCase {
 
     func testAppProvidesContentView() {
         // Arrange
-        let app = CommunicationDashboardApp()
+        let app = CommunicationDashboardMainApp()
 
         // Act
         let body = app.body
@@ -194,7 +205,7 @@ final class AppStructureTests: XCTestCase {
 
     func testAppUsesSwiftUILifecycle() {
         // Arrange
-        let app = CommunicationDashboardApp()
+        let app = CommunicationDashboardMainApp()
 
         // Assert
         // SwiftUI lifecycle apps use @main attribute and conform to App protocol

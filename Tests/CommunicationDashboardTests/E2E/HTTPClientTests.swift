@@ -193,6 +193,8 @@ final class HTTPClientTests: XCTestCase {
             } else {
                 XCTFail("Wrong error type thrown")
             }
+        } catch {
+            XCTFail("Unexpected error type: \(error)")
         }
     }
 
@@ -215,6 +217,8 @@ final class HTTPClientTests: XCTestCase {
             } else {
                 XCTFail("Wrong error type thrown")
             }
+        } catch {
+            XCTFail("Unexpected error type: \(error)")
         }
     }
 
