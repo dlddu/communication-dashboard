@@ -22,13 +22,11 @@ public class FixtureLoader {
     private var cache: [String: Data] = [:]
     private let fixturesDirectory: URL
 
-    public init() {
-        // Resolve the fixtures directory from the bundle
-        if let resourcePath = Bundle.module.resourcePath {
-            self.fixturesDirectory = URL(fileURLWithPath: resourcePath)
-                .appendingPathComponent("Fixtures")
+    public init(fixturesDirectory: URL? = nil) {
+        if let directory = fixturesDirectory {
+            self.fixturesDirectory = directory
         } else {
-            // Fallback for development
+            // Fallback for development - use current working directory
             self.fixturesDirectory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
                 .appendingPathComponent("Tests/Fixtures")
         }

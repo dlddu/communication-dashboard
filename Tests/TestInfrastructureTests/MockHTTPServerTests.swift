@@ -7,7 +7,9 @@ final class MockHTTPServerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        mockServer = MockHTTPServer()
+        // Use Bundle.module to locate test fixtures
+        let fixturesDirectory = Bundle.module.resourceURL!.appendingPathComponent("Fixtures")
+        mockServer = MockHTTPServer(fixturesDirectory: fixturesDirectory)
     }
 
     override func tearDown() {

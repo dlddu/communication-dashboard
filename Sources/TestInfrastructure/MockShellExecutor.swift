@@ -18,7 +18,7 @@ public class MockShellExecutor: ShellExecutorProtocol {
         let delay: TimeInterval
     }
 
-    private struct CommandExecution {
+    public struct CommandExecution {
         let command: String
         let timestamp: Date
     }
@@ -29,9 +29,11 @@ public class MockShellExecutor: ShellExecutorProtocol {
     private var environmentVariables: [String: String] = [:]
     private var workingDirectory: String = FileManager.default.currentDirectoryPath
 
-    private let fixtureLoader = FixtureLoader()
+    private let fixtureLoader: FixtureLoader
 
-    public init() {}
+    public init(fixturesDirectory: URL? = nil) {
+        self.fixtureLoader = FixtureLoader(fixturesDirectory: fixturesDirectory)
+    }
 
     // MARK: - Command Registration
 

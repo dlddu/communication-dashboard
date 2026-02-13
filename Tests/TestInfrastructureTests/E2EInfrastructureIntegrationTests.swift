@@ -12,9 +12,11 @@ final class E2EInfrastructureIntegrationTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        mockServer = MockHTTPServer()
-        mockShell = MockShellExecutor()
-        fixtureLoader = FixtureLoader()
+        // Use Bundle.module to locate test fixtures
+        let fixturesDirectory = Bundle.module.resourceURL!.appendingPathComponent("Fixtures")
+        mockServer = MockHTTPServer(fixturesDirectory: fixturesDirectory)
+        mockShell = MockShellExecutor(fixturesDirectory: fixturesDirectory)
+        fixtureLoader = FixtureLoader(fixturesDirectory: fixturesDirectory)
         databaseManager = DatabaseManager(inMemory: true)
     }
 

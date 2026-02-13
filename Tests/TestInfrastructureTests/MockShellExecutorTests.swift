@@ -7,7 +7,9 @@ final class MockShellExecutorTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        mockExecutor = MockShellExecutor()
+        // Use Bundle.module to locate test fixtures
+        let fixturesDirectory = Bundle.module.resourceURL!.appendingPathComponent("Fixtures")
+        mockExecutor = MockShellExecutor(fixturesDirectory: fixturesDirectory)
     }
 
     override func tearDown() {

@@ -7,7 +7,9 @@ final class FixtureLoaderTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        fixtureLoader = FixtureLoader()
+        // Use Bundle.module to locate test fixtures
+        let fixturesDirectory = Bundle.module.resourceURL!.appendingPathComponent("Fixtures")
+        fixtureLoader = FixtureLoader(fixturesDirectory: fixturesDirectory)
     }
 
     override func tearDown() {

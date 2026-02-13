@@ -30,7 +30,7 @@ public class MockHTTPServer {
     private var isServerRunning = false
     private var registeredEndpoints: [String: EndpointRegistration] = [:]
     private var requestHistory: [String: [RequestRecord]] = [:]
-    private let fixtureLoader = FixtureLoader()
+    private let fixtureLoader: FixtureLoader
 
     public var isRunning: Bool {
         return isServerRunning
@@ -41,7 +41,9 @@ public class MockHTTPServer {
         return 8080
     }
 
-    public init() {}
+    public init(fixturesDirectory: URL? = nil) {
+        self.fixtureLoader = FixtureLoader(fixturesDirectory: fixturesDirectory)
+    }
 
     // MARK: - Server Control
 
