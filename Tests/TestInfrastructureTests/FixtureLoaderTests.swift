@@ -7,8 +7,12 @@ final class FixtureLoaderTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        // Use Bundle.module to locate test fixtures
-        let fixturesDirectory = Bundle.module.resourceURL!.appendingPathComponent("Fixtures")
+        // Use #file to locate test fixtures relative to the test file
+        let testFileURL = URL(fileURLWithPath: #file)
+        let fixturesDirectory = testFileURL
+            .deletingLastPathComponent()  // Tests/TestInfrastructureTests/
+            .deletingLastPathComponent()  // Tests/
+            .appendingPathComponent("Fixtures")
         fixtureLoader = FixtureLoader(fixturesDirectory: fixturesDirectory)
     }
 
@@ -233,9 +237,12 @@ final class FixtureLoaderTests: XCTestCase {
     }
 
     func testParseInvalidJSONThrows() {
+        // Arrange
+        struct DummyDecodable: Decodable {}
+
         // Act & Assert
         XCTAssertThrowsError(
-            try fixtureLoader.loadAndParse(path: "JSON/invalid.json") as [String: Any],
+            try fixtureLoader.loadAndParse(path: "JSON/invalid.json") as DummyDecodable,
             "Should throw error for invalid JSON"
         ) { error in
             XCTAssertTrue(
@@ -246,9 +253,12 @@ final class FixtureLoaderTests: XCTestCase {
     }
 
     func testParseInvalidYAMLThrows() {
+        // Arrange
+        struct DummyDecodable: Decodable {}
+
         // Act & Assert
         XCTAssertThrowsError(
-            try fixtureLoader.loadYAMLAndParse(path: "YAML/invalid.yaml") as [String: Any],
+            try fixtureLoader.loadYAMLAndParse(path: "YAML/invalid.yaml") as DummyDecodable,
             "Should throw error for invalid YAML"
         ) { error in
             XCTAssertTrue(

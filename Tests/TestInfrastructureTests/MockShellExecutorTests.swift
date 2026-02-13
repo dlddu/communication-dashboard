@@ -7,8 +7,12 @@ final class MockShellExecutorTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        // Use Bundle.module to locate test fixtures
-        let fixturesDirectory = Bundle.module.resourceURL!.appendingPathComponent("Fixtures")
+        // Use #file to locate test fixtures relative to the test file
+        let testFileURL = URL(fileURLWithPath: #file)
+        let fixturesDirectory = testFileURL
+            .deletingLastPathComponent()  // Tests/TestInfrastructureTests/
+            .deletingLastPathComponent()  // Tests/
+            .appendingPathComponent("Fixtures")
         mockExecutor = MockShellExecutor(fixturesDirectory: fixturesDirectory)
     }
 
@@ -63,7 +67,7 @@ final class MockShellExecutorTests: XCTestCase {
         // Arrange
         let command = "cat config.yaml"
 
-        mockExecutor.registerCommandWithFixture(
+        try mockExecutor.registerCommandWithFixture(
             command: command,
             fixturePath: "Shell/cat_config_output.txt",
             exitCode: 0
