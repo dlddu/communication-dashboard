@@ -1,0 +1,11 @@
+appName: CommunicationDashboard
+version: 0.1.0
+
+features:
+  darkMode: true
+  notifications: false
+  autoUpdate: true
+
+network:
+  timeout: 30
+  retries: 3

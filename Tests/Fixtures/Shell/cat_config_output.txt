@@ -1,0 +1,7 @@
+plugins:
+  - name: slack
+    enabled: true
+
+database:
+  type: sqlite
+  path: ~/.commdash/db/main.db

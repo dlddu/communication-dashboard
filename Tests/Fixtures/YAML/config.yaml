@@ -1,0 +1,20 @@
+plugins:
+  - name: slack
+    enabled: true
+    config:
+      token: test_token
+      channel: general
+  - name: email
+    enabled: false
+    config:
+      smtp_server: smtp.example.com
+      port: 587
+
+database:
+  type: sqlite
+  path: ~/.commdash/db/main.db
+
+features:
+  full_text_search: true
+  vector_search: true
+  auto_sync: false

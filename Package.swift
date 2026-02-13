@@ -25,6 +25,17 @@ let package = Package(
             ],
             path: "Sources/CommunicationDashboard"
         ),
+        .target(
+            name: "TestInfrastructure",
+            dependencies: [
+                "CommunicationDashboard",
+                .product(name: "Yams", package: "Yams")
+            ],
+            path: "Sources/TestInfrastructure",
+            resources: [
+                .copy("../../../Tests/Fixtures")
+            ]
+        ),
         .testTarget(
             name: "CommunicationDashboardTests",
             dependencies: [
@@ -32,6 +43,17 @@ let package = Package(
                 .product(name: "GRDB", package: "GRDB.swift")
             ],
             path: "Tests/CommunicationDashboardTests"
+        ),
+        .testTarget(
+            name: "TestInfrastructureTests",
+            dependencies: [
+                "TestInfrastructure",
+                "CommunicationDashboard"
+            ],
+            path: "Tests/TestInfrastructureTests",
+            resources: [
+                .copy("../Fixtures")
+            ]
         )
     ]
 )
