@@ -1,0 +1,7 @@
+Line 1
+	Tab indented line
+    Space indented line
+
+Line with trailing spaces
+
+Final line
