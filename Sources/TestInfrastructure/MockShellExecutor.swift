@@ -97,10 +97,6 @@ public class MockShellExecutor: ShellExecutorProtocol {
             throw ExecutorError.invalidTimeout
         }
 
-        // Record execution
-        let execution = CommandExecution(command: command, timestamp: Date())
-        executionHistory[command, default: []].append(execution)
-
         // Find matching registration
         let registration: CommandRegistration
 
@@ -111,6 +107,10 @@ public class MockShellExecutor: ShellExecutorProtocol {
         } else {
             throw ExecutorError.commandNotRegistered("Command not registered: \(command)")
         }
+
+        // Record execution (only after confirming command is registered)
+        let execution = CommandExecution(command: command, timestamp: Date())
+        executionHistory[command, default: []].append(execution)
 
         // Simulate delay
         if registration.delay > 0 {

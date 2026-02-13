@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "version": "2.0.0",
+  "data": {
+    "message": "Plugin v2 executed successfully",
+    "items": [
+      "item1",
+      "item2",
+      "item3"
+    ],
+    "count": 3,
+    "timestamp": "2026-02-13T00:00:00Z"
+  }
+}
