@@ -1,0 +1,7 @@
+# CommBoard E2E 테스트용 기본 앱 설정 fixture
+version: "1.0"
+refresh_interval: 60
+theme: system
+notifications:
+  enabled: true
+  max_count: 50

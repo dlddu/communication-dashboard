@@ -50,6 +50,18 @@ let package = Package(
                 "Yams"
             ],
             path: "Tests/CommBoardTests"
+        ),
+        .testTarget(
+            name: "CommBoardUITests",
+            dependencies: [
+                "CommBoard",
+                .product(name: "GRDB", package: "GRDB.swift"),
+                "Yams"
+            ],
+            path: "Tests/CommBoardUITests",
+            resources: [
+                .copy("Fixtures")
+            ]
         )
     ]
 )
