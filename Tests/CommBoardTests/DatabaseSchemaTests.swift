@@ -74,7 +74,7 @@ final class DatabaseSchemaTests: XCTestCase {
         // Assert
         XCTAssertNotNil(column, "plugin_id 컬럼이 존재해야 합니다")
         XCTAssertEqual(column?.type.uppercased(), "TEXT")
-        XCTAssertFalse(column?.isNullable ?? true, "plugin_id는 NOT NULL이어야 합니다")
+        XCTAssertTrue(column?.isNotNull ?? false, "plugin_id는 NOT NULL이어야 합니다")
     }
 
     func test_notificationsTable_hasColumn_title_notNull() throws {
@@ -90,7 +90,7 @@ final class DatabaseSchemaTests: XCTestCase {
         // Assert
         XCTAssertNotNil(column, "title 컬럼이 존재해야 합니다")
         XCTAssertEqual(column?.type.uppercased(), "TEXT")
-        XCTAssertFalse(column?.isNullable ?? true, "title은 NOT NULL이어야 합니다")
+        XCTAssertTrue(column?.isNotNull ?? false, "title은 NOT NULL이어야 합니다")
     }
 
     func test_notificationsTable_hasColumn_subtitle_nullable() throws {
@@ -105,7 +105,7 @@ final class DatabaseSchemaTests: XCTestCase {
 
         // Assert
         XCTAssertNotNil(column, "subtitle 컬럼이 존재해야 합니다")
-        XCTAssertTrue(column?.isNullable ?? false, "subtitle은 nullable이어야 합니다")
+        XCTAssertFalse(column?.isNotNull ?? true, "subtitle은 nullable이어야 합니다")
     }
 
     func test_notificationsTable_hasColumn_body_nullable() throws {
@@ -120,7 +120,7 @@ final class DatabaseSchemaTests: XCTestCase {
 
         // Assert
         XCTAssertNotNil(column, "body 컬럼이 존재해야 합니다")
-        XCTAssertTrue(column?.isNullable ?? false, "body는 nullable이어야 합니다")
+        XCTAssertFalse(column?.isNotNull ?? true, "body는 nullable이어야 합니다")
     }
 
     func test_notificationsTable_hasColumn_timestamp_notNull() throws {
@@ -135,7 +135,7 @@ final class DatabaseSchemaTests: XCTestCase {
 
         // Assert
         XCTAssertNotNil(column, "timestamp 컬럼이 존재해야 합니다")
-        XCTAssertFalse(column?.isNullable ?? true, "timestamp는 NOT NULL이어야 합니다")
+        XCTAssertTrue(column?.isNotNull ?? false, "timestamp는 NOT NULL이어야 합니다")
     }
 
     func test_notificationsTable_hasColumn_isRead_notNull_withDefaultFalse() throws {
@@ -150,7 +150,7 @@ final class DatabaseSchemaTests: XCTestCase {
 
         // Assert
         XCTAssertNotNil(column, "is_read 컬럼이 존재해야 합니다")
-        XCTAssertFalse(column?.isNullable ?? true, "is_read는 NOT NULL이어야 합니다")
+        XCTAssertTrue(column?.isNotNull ?? false, "is_read는 NOT NULL이어야 합니다")
         // 기본값 0 (false) 확인
         XCTAssertEqual(column?.defaultValueSQL, "0")
     }
@@ -167,7 +167,7 @@ final class DatabaseSchemaTests: XCTestCase {
 
         // Assert
         XCTAssertNotNil(column, "metadata 컬럼이 존재해야 합니다")
-        XCTAssertTrue(column?.isNullable ?? false, "metadata는 nullable이어야 합니다")
+        XCTAssertFalse(column?.isNotNull ?? true, "metadata는 nullable이어야 합니다")
     }
 
     func test_notificationsTable_hasColumn_createdAt_notNull_withDefaultCurrentTimestamp() throws {
@@ -182,7 +182,7 @@ final class DatabaseSchemaTests: XCTestCase {
 
         // Assert
         XCTAssertNotNil(column, "created_at 컬럼이 존재해야 합니다")
-        XCTAssertFalse(column?.isNullable ?? true, "created_at는 NOT NULL이어야 합니다")
+        XCTAssertTrue(column?.isNotNull ?? false, "created_at는 NOT NULL이어야 합니다")
         XCTAssertNotNil(column?.defaultValueSQL, "created_at는 기본값(CURRENT_TIMESTAMP)이 있어야 합니다")
     }
 
@@ -246,7 +246,7 @@ final class DatabaseSchemaTests: XCTestCase {
 
         // Assert
         XCTAssertNotNil(column, "plugin_id 컬럼이 존재해야 합니다")
-        XCTAssertFalse(column?.isNullable ?? true, "plugin_id는 NOT NULL이어야 합니다")
+        XCTAssertTrue(column?.isNotNull ?? false, "plugin_id는 NOT NULL이어야 합니다")
     }
 
     func test_widgetLayoutTable_hasColumn_positionX_notNull_withDefaultZero() throws {
@@ -261,7 +261,7 @@ final class DatabaseSchemaTests: XCTestCase {
 
         // Assert
         XCTAssertNotNil(column, "position_x 컬럼이 존재해야 합니다")
-        XCTAssertFalse(column?.isNullable ?? true, "position_x는 NOT NULL이어야 합니다")
+        XCTAssertTrue(column?.isNotNull ?? false, "position_x는 NOT NULL이어야 합니다")
         XCTAssertEqual(column?.defaultValueSQL, "0")
     }
 
@@ -277,7 +277,7 @@ final class DatabaseSchemaTests: XCTestCase {
 
         // Assert
         XCTAssertNotNil(column, "position_y 컬럼이 존재해야 합니다")
-        XCTAssertFalse(column?.isNullable ?? true, "position_y는 NOT NULL이어야 합니다")
+        XCTAssertTrue(column?.isNotNull ?? false, "position_y는 NOT NULL이어야 합니다")
         XCTAssertEqual(column?.defaultValueSQL, "0")
     }
 
@@ -293,7 +293,7 @@ final class DatabaseSchemaTests: XCTestCase {
 
         // Assert
         XCTAssertNotNil(column, "size 컬럼이 존재해야 합니다")
-        XCTAssertFalse(column?.isNullable ?? true, "size는 NOT NULL이어야 합니다")
+        XCTAssertTrue(column?.isNotNull ?? false, "size는 NOT NULL이어야 합니다")
         XCTAssertEqual(column?.defaultValueSQL, "'medium'")
     }
 
@@ -309,7 +309,7 @@ final class DatabaseSchemaTests: XCTestCase {
 
         // Assert
         XCTAssertNotNil(column, "display_order 컬럼이 존재해야 합니다")
-        XCTAssertFalse(column?.isNullable ?? true, "display_order는 NOT NULL이어야 합니다")
+        XCTAssertTrue(column?.isNotNull ?? false, "display_order는 NOT NULL이어야 합니다")
         XCTAssertEqual(column?.defaultValueSQL, "0")
     }
 
