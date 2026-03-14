@@ -3,6 +3,15 @@ import Yams
 
 /// `~/.commboard/config.yaml` 및 `~/.commboard/plugins/*.yaml` 파일을 관리합니다.
 public final class ConfigManager {
+
+    public enum Defaults {
+        public static let version = "1.0"
+        public static let refreshInterval = 300
+        public static let theme = "system"
+        public static let notificationsEnabled = true
+        public static let maxNotificationCount = 100
+    }
+
     public let baseDirectory: URL
     public let pluginsDirectory: URL
     public let configFileURL: URL
@@ -111,7 +120,12 @@ public final class ConfigManager {
         var result: [String: [String: Any]] = [:]
         for url in contents where url.pathExtension == "yaml" {
             let pluginId = url.deletingPathExtension().lastPathComponent
-            result[pluginId] = try loadPluginConfig(pluginId: pluginId)
+            do {
+                result[pluginId] = try loadPluginConfig(pluginId: pluginId)
+            } catch {
+                // 개별 플러그인 로드 실패 시 건너뛰고 나머지 계속 로드
+                continue
+            }
         }
         return result
     }
@@ -124,12 +138,12 @@ public final class ConfigManager {
 
     private func defaultConfig() -> [String: Any] {
         return [
-            "version": "1.0",
-            "refresh_interval": 300,
-            "theme": "system",
+            "version": Defaults.version,
+            "refresh_interval": Defaults.refreshInterval,
+            "theme": Defaults.theme,
             "notifications": [
-                "enabled": true,
-                "max_count": 100
+                "enabled": Defaults.notificationsEnabled,
+                "max_count": Defaults.maxNotificationCount
             ]
         ]
     }

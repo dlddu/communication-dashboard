@@ -7,7 +7,7 @@ let package = Package(
         .macOS(.v13)
     ],
     products: [
-        .library(
+        .executable(
             name: "CommBoard",
             targets: ["CommBoard"]
         )
@@ -23,7 +23,7 @@ let package = Package(
         )
     ],
     targets: [
-        .target(
+        .executableTarget(
             name: "CommBoard",
             dependencies: [
                 .product(name: "GRDB", package: "GRDB.swift"),

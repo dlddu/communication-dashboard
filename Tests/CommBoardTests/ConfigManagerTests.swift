@@ -77,7 +77,7 @@ final class ConfigManagerTests: XCTestCase {
         let config = try sut.loadConfig()
 
         // Assert
-        XCTAssertEqual(config["version"] as? String, "1.0")
+        XCTAssertEqual(config["version"] as? String, ConfigManager.Defaults.version)
     }
 
     func test_loadConfig_defaultConfig_hasCorrectRefreshInterval() throws {
@@ -85,7 +85,7 @@ final class ConfigManagerTests: XCTestCase {
         let config = try sut.loadConfig()
 
         // Assert
-        XCTAssertEqual(config["refresh_interval"] as? Int, 300)
+        XCTAssertEqual(config["refresh_interval"] as? Int, ConfigManager.Defaults.refreshInterval)
     }
 
     func test_loadConfig_defaultConfig_hasSystemTheme() throws {
@@ -93,7 +93,7 @@ final class ConfigManagerTests: XCTestCase {
         let config = try sut.loadConfig()
 
         // Assert
-        XCTAssertEqual(config["theme"] as? String, "system")
+        XCTAssertEqual(config["theme"] as? String, ConfigManager.Defaults.theme)
     }
 
     // MARK: - saveConfig / loadConfig 왕복 테스트
@@ -261,6 +261,24 @@ final class ConfigManagerTests: XCTestCase {
         // Assert
         XCTAssertEqual(allConfigs.count, 1, ".yaml 파일만 로드해야 합니다")
         XCTAssertNotNil(allConfigs["slack"])
+    }
+
+    func test_loadAllPluginConfigs_skipsInvalidYaml_andLoadsRest() throws {
+        // Arrange
+        try sut.savePluginConfig(["token": "slack-token"], pluginId: "slack")
+        try sut.savePluginConfig(["token": "github-token"], pluginId: "github")
+
+        // 잘못된 YAML 파일 직접 생성
+        let invalidFile = sut.pluginsDirectory.appendingPathComponent("broken.yaml")
+        try "invalid: yaml: [unterminated".write(to: invalidFile, atomically: true, encoding: .utf8)
+
+        // Act - 부분 실패 시에도 나머지 플러그인이 로드되어야 함
+        let allConfigs = try sut.loadAllPluginConfigs()
+
+        // Assert
+        XCTAssertGreaterThanOrEqual(allConfigs.count, 2, "유효한 플러그인은 정상 로드되어야 합니다")
+        XCTAssertNotNil(allConfigs["slack"])
+        XCTAssertNotNil(allConfigs["github"])
     }
 
     func test_savePluginConfig_overwritesExistingConfig() throws {

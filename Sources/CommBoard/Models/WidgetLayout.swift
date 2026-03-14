@@ -5,6 +5,13 @@ import GRDB
 public struct WidgetLayout: Codable, FetchableRecord, PersistableRecord {
     public static let databaseTableName = "widget_layout"
 
+    public enum Defaults {
+        public static let positionX = 0
+        public static let positionY = 0
+        public static let size = "medium"
+        public static let displayOrder = 0
+    }
+
     public var id: String
     public var pluginId: String
     public var positionX: Int
@@ -15,10 +22,10 @@ public struct WidgetLayout: Codable, FetchableRecord, PersistableRecord {
     public init(
         id: String,
         pluginId: String,
-        positionX: Int = 0,
-        positionY: Int = 0,
-        size: String = "medium",
-        displayOrder: Int = 0
+        positionX: Int = Defaults.positionX,
+        positionY: Int = Defaults.positionY,
+        size: String = Defaults.size,
+        displayOrder: Int = Defaults.displayOrder
     ) {
         self.id = id
         self.pluginId = pluginId

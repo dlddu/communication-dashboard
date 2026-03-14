@@ -24,10 +24,10 @@ public struct DatabaseSchema {
             try db.create(table: "widget_layout", ifNotExists: true) { t in
                 t.column("id", .text).primaryKey()
                 t.column("plugin_id", .text).notNull()
-                t.column("position_x", .integer).notNull().defaults(to: 0)
-                t.column("position_y", .integer).notNull().defaults(to: 0)
-                t.column("size", .text).notNull().defaults(to: "medium")
-                t.column("display_order", .integer).notNull().defaults(to: 0)
+                t.column("position_x", .integer).notNull().defaults(to: WidgetLayout.Defaults.positionX)
+                t.column("position_y", .integer).notNull().defaults(to: WidgetLayout.Defaults.positionY)
+                t.column("size", .text).notNull().defaults(to: WidgetLayout.Defaults.size)
+                t.column("display_order", .integer).notNull().defaults(to: WidgetLayout.Defaults.displayOrder)
             }
         }
 
