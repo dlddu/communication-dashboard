@@ -55,8 +55,8 @@ final class DatabaseManagerTests: XCTestCase {
     func test_migration_notificationsTable_idIsPrimaryKeyAutoIncrement() throws {
         // Arrange & Act
         let pkColumns = try dbManager.dbQueue.read { db -> [String] in
-            let tableInfo = try db.columns(in: "notifications")
-            return tableInfo.filter { $0.isPrimaryKey }.map { $0.name }
+            let primaryKey = try db.primaryKey("notifications")
+            return primaryKey.columns
         }
 
         // Assert

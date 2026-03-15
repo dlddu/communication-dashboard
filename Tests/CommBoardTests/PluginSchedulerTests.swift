@@ -47,7 +47,7 @@ final class PluginSchedulerTests: XCTestCase {
 
         // Assert
         XCTAssertEqual(
-            scheduler.interval(for: "github"),
+            scheduler.interval(for: "github") ?? 0,
             30,
             accuracy: 0.001,
             "설정한 interval이 저장되어야 합니다"
@@ -82,8 +82,8 @@ final class PluginSchedulerTests: XCTestCase {
         scheduler.start(plugin: github, interval: 300)
 
         // Assert
-        XCTAssertEqual(scheduler.interval(for: "slack"), 60, accuracy: 0.001, "slack의 interval은 60초여야 합니다")
-        XCTAssertEqual(scheduler.interval(for: "github"), 300, accuracy: 0.001, "github의 interval은 300초여야 합니다")
+        XCTAssertEqual(scheduler.interval(for: "slack") ?? 0, 60, accuracy: 0.001, "slack의 interval은 60초여야 합니다")
+        XCTAssertEqual(scheduler.interval(for: "github") ?? 0, 300, accuracy: 0.001, "github의 interval은 300초여야 합니다")
     }
 
     func test_start_replacesExistingTimerForSamePlugin() {
@@ -97,7 +97,7 @@ final class PluginSchedulerTests: XCTestCase {
         // Assert
         XCTAssertEqual(scheduler.scheduledPluginIds.count, 1, "같은 플러그인 재시작 시 타이머가 1개여야 합니다")
         XCTAssertEqual(
-            scheduler.interval(for: "slack"),
+            scheduler.interval(for: "slack") ?? 0,
             30,
             accuracy: 0.001,
             "새 interval로 업데이트되어야 합니다"
@@ -237,7 +237,7 @@ final class PluginSchedulerTests: XCTestCase {
         scheduler.start(plugin: plugin, interval: 150)
 
         // Assert
-        XCTAssertEqual(scheduler.interval(for: "github"), 150, accuracy: 0.001, "설정된 interval이 반환되어야 합니다")
+        XCTAssertEqual(scheduler.interval(for: "github") ?? 0, 150, accuracy: 0.001, "설정된 interval이 반환되어야 합니다")
     }
 
     // MARK: - fetch 콜백 검증
