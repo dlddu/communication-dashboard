@@ -1,0 +1,34 @@
+name: CommBoard
+options:
+  bundleIdPrefix: com.dlddu
+  deploymentTarget:
+    macOS: "14.0"
+targets:
+  CommBoard:
+    type: application
+    platform: macOS
+    sources: [CommBoard]
+    settings:
+      INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.productivity"
+    dependencies:
+      - package: GRDB
+      - package: Yams
+  CommBoardTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources: [CommBoardTests]
+    dependencies:
+      - target: CommBoard
+  CommBoardUITests:
+    type: bundle.ui-testing
+    platform: macOS
+    sources: [CommBoardUITests]
+    dependencies:
+      - target: CommBoard
+packages:
+  GRDB:
+    url: https://github.com/groue/GRDB.swift
+    from: "7.0.0"
+  Yams:
+    url: https://github.com/jpsim/Yams
+    from: "5.0.0"
