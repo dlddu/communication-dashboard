@@ -334,7 +334,7 @@ final class DatabaseManagerTests: XCTestCase {
         XCTAssertEqual(row?["title"] as? String, "New Message")
         XCTAssertEqual(row?["subtitle"] as? String, "From Alice")
         XCTAssertEqual(row?["body"] as? String, "Hello!")
-        XCTAssertEqual(row?["is_read"] as? Int, 0)
+        XCTAssertEqual(row?["is_read"] as? Int64, 0)
     }
 
     func test_widgetLayout_canInsertAndRetrieveRecord() throws {
@@ -359,6 +359,6 @@ final class DatabaseManagerTests: XCTestCase {
         XCTAssertEqual(row?["position_x"] as? Double ?? 0, 10.5, accuracy: 0.001)
         XCTAssertEqual(row?["position_y"] as? Double ?? 0, 20.0, accuracy: 0.001)
         XCTAssertEqual(row?["size"] as? Double ?? 0, 200.0, accuracy: 0.001)
-        XCTAssertEqual(row?["order"] as? Int, 1)
+        XCTAssertEqual(row?["order"] as? Int64, 1)
     }
 }
