@@ -22,7 +22,13 @@ targets:
   CommBoardUITests:
     type: bundle.ui-testing
     platform: macOS
-    sources: [CommBoardUITests]
+    sources:
+      - path: CommBoardUITests
+        excludes:
+          - "Fixtures/**"
+      - path: CommBoardUITests/Fixtures
+        type: folder
+        buildPhase: resources
     dependencies:
       - target: CommBoard
 packages:
