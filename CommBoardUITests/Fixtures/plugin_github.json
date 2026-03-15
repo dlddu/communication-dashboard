@@ -1,0 +1,10 @@
+{
+  "id": "github",
+  "enabled": true,
+  "interval": 60,
+  "settings": {
+    "token": "mock-github-token",
+    "owner": "test-org",
+    "repo": "test-repo"
+  }
+}
