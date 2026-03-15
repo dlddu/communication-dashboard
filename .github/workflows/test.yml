@@ -1,0 +1,48 @@
+name: Test
+
+on:
+  push:
+    branches: [main, "feat/**", "fix/**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Swift Tests (macOS)
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app/Contents/Developer
+
+      - name: Show Swift version
+        run: swift --version
+
+      - name: Resolve package dependencies
+        run: swift package resolve
+        working-directory: ${{ github.workspace }}
+
+      - name: Build
+        run: swift build
+        working-directory: ${{ github.workspace }}
+
+      - name: Run tests
+        run: swift test --enable-code-coverage
+        working-directory: ${{ github.workspace }}
+
+      - name: Export code coverage report
+        run: |
+          xcrun llvm-cov export \
+            .build/debug/CommBoardPackageTests.xctest/Contents/MacOS/CommBoardPackageTests \
+            -instr-profile .build/debug/codecov/default.profdata \
+            -format lcov > coverage.lcov
+        working-directory: ${{ github.workspace }}
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.lcov
+          fail_ci_if_error: false
