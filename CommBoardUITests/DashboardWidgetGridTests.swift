@@ -24,8 +24,6 @@ final class DashboardWidgetGridTests: UITestBase {
 
     /// mock 모드로 앱 실행 시 Dashboard 위젯 그리드 컨테이너가 표시되어야 합니다.
     func testDashboardWidgetGrid_ShowsGridContainer() throws {
-        throw XCTSkip("Pending implementation: DLD-753")
-
         // Arrange & Act
         launchAppInMockMode()
 
@@ -43,8 +41,6 @@ final class DashboardWidgetGridTests: UITestBase {
 
     /// 위젯 그리드 안에 위젯 셀들이 하나 이상 표시되어야 합니다.
     func testDashboardWidgetGrid_ShowsWidgetCells() throws {
-        throw XCTSkip("Pending implementation: DLD-753")
-
         // Arrange & Act
         launchAppInMockMode()
 
@@ -69,8 +65,6 @@ final class DashboardWidgetGridTests: UITestBase {
 
     /// 위젯 크기("small", "medium", "large")에 따라 셀 프레임 크기가 달라야 합니다.
     func testDashboardWidgetGrid_WidgetCellSizes_DifferByLayout() throws {
-        throw XCTSkip("Pending implementation: DLD-753")
-
         // Arrange & Act
         launchAppInMockMode()
 
@@ -108,8 +102,6 @@ final class DashboardWidgetGridTests: UITestBase {
 
     /// 상태바 영역에 마지막 동기화 시간 텍스트가 표시되어야 합니다.
     func testDashboardStatusBar_ShowsLastSyncTime() throws {
-        throw XCTSkip("Pending implementation: DLD-753")
-
         // Arrange & Act
         launchAppInMockMode()
 
