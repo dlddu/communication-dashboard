@@ -1,0 +1,41 @@
+# Xcode generated project (managed by XcodeGen)
+*.xcodeproj/
+
+# Build artifacts
+build/
+DerivedData/
+
+# macOS
+.DS_Store
+
+# Xcode user data
+xcuserdata/
+*.xcuserstate
+
+# Workspace (if generated)
+*.xcworkspace/
+
+# Swift Package Manager
+.build/
+*.resolved
+
+# CocoaPods
+Pods/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Code coverage
+*.coverage.txt
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Other
+*.orig
+*.swp
+*~.nib
