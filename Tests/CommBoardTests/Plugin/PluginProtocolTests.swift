@@ -126,7 +126,7 @@ final class PluginProtocolTests: XCTestCase {
 
     func test_pluginProtocol_configIsMutable() {
         // Arrange
-        var plugin: any PluginProtocol = MockPlugin()
+        let plugin: any PluginProtocol = MockPlugin()
         let newConfig = PluginConfig(
             id: plugin.id,
             name: plugin.name,

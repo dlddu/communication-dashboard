@@ -65,12 +65,11 @@ final class DatabaseMigrationTests: XCTestCase {
         _ = try DatabaseManager(dbQueue: dbQueue)
 
         // Assert: id column is the primary key
-        let pkColumns = try dbQueue.read { db -> [ColumnInfo] in
-            try db.columns(in: "notifications").filter { $0.isPrimaryKey }
+        let pkInfo = try dbQueue.read { db in
+            try db.primaryKey("notifications")
         }
 
-        XCTAssertEqual(pkColumns.count, 1)
-        XCTAssertEqual(pkColumns.first?.name, "id")
+        XCTAssertEqual(pkInfo.columns, ["id"])
     }
 
     func test_migration_widgetLayoutTable_idIsPrimaryKey() throws {
@@ -78,12 +77,11 @@ final class DatabaseMigrationTests: XCTestCase {
         _ = try DatabaseManager(dbQueue: dbQueue)
 
         // Assert: id column is the primary key
-        let pkColumns = try dbQueue.read { db -> [ColumnInfo] in
-            try db.columns(in: "widget_layout").filter { $0.isPrimaryKey }
+        let pkInfo = try dbQueue.read { db in
+            try db.primaryKey("widget_layout")
         }
 
-        XCTAssertEqual(pkColumns.count, 1)
-        XCTAssertEqual(pkColumns.first?.name, "id")
+        XCTAssertEqual(pkInfo.columns, ["id"])
     }
 
     func test_migration_isIdempotent_runningTwiceDoesNotThrow() throws {
