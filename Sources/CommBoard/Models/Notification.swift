@@ -2,7 +2,7 @@ import Foundation
 import GRDB
 
 /// Represents a notification record stored in the database.
-public struct Notification: Codable, FetchableRecord, PersistableRecord, Equatable {
+public struct AppNotification: Codable, FetchableRecord, PersistableRecord, Equatable {
     public static let databaseTableName = "notifications"
 
     public var id: String

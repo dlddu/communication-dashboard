@@ -15,7 +15,7 @@ public protocol PluginProtocol: AnyObject {
     var config: [String: Any] { get }
 
     /// Fetches new notifications from the plugin's data source.
-    func fetch() async throws -> [Notification]
+    func fetch() async throws -> [AppNotification]
 
     /// Verifies that the plugin can reach its data source.
     func testConnection() async throws -> Bool

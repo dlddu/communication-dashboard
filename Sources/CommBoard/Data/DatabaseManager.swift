@@ -51,15 +51,15 @@ public final class DatabaseManager {
 
     // MARK: - Notifications
 
-    public func insertNotification(_ notification: Notification) throws {
+    public func insertNotification(_ notification: AppNotification) throws {
         try dbQueue.write { db in
             try notification.insert(db)
         }
     }
 
-    public func fetchAllNotifications() throws -> [Notification] {
+    public func fetchAllNotifications() throws -> [AppNotification] {
         try dbQueue.read { db in
-            try Notification.fetchAll(db)
+            try AppNotification.fetchAll(db)
         }
     }
 

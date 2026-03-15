@@ -10,7 +10,7 @@ final class MockPlugin: PluginProtocol {
     let icon: String
     let config: [String: Any]
 
-    var fetchResult: Result<[Notification], Error> = .success([])
+    var fetchResult: Result<[AppNotification], Error> = .success([])
     var connectionResult: Result<Bool, Error> = .success(true)
 
     init(
@@ -25,7 +25,7 @@ final class MockPlugin: PluginProtocol {
         self.config = config
     }
 
-    func fetch() async throws -> [Notification] {
+    func fetch() async throws -> [AppNotification] {
         try fetchResult.get()
     }
 

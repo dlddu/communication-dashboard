@@ -80,7 +80,7 @@ final class DatabaseManagerTests: XCTestCase {
 
     func test_insert_notification_persists_record() throws {
         // Arrange
-        let notification = Notification(
+        let notification = AppNotification(
             id: "notif-001",
             pluginId: "slack",
             title: "New message",
@@ -103,7 +103,7 @@ final class DatabaseManagerTests: XCTestCase {
     func test_insert_multiple_notifications_all_persisted() throws {
         // Arrange
         let notifications = (1...3).map { i in
-            Notification(
+            AppNotification(
                 id: "notif-\(i)",
                 pluginId: "github",
                 title: "PR #\(i)",
@@ -122,14 +122,14 @@ final class DatabaseManagerTests: XCTestCase {
 
     func test_notification_optional_subtitle_stored_correctly() throws {
         // Arrange
-        let withSubtitle = Notification(
+        let withSubtitle = AppNotification(
             id: "with-sub",
             pluginId: "p1",
             title: "T",
             subtitle: "Subtitle value",
             body: "B"
         )
-        let withoutSubtitle = Notification(
+        let withoutSubtitle = AppNotification(
             id: "no-sub",
             pluginId: "p1",
             title: "T",
@@ -151,7 +151,7 @@ final class DatabaseManagerTests: XCTestCase {
 
     func test_mark_notification_read_updates_is_read_flag() throws {
         // Arrange
-        let notification = Notification(
+        let notification = AppNotification(
             id: "notif-read",
             pluginId: "github",
             title: "Issue opened",
@@ -180,7 +180,7 @@ final class DatabaseManagerTests: XCTestCase {
 
     func test_insert_notification_with_duplicate_id_throws() throws {
         // Arrange
-        let notification = Notification(
+        let notification = AppNotification(
             id: "dup-id",
             pluginId: "p1",
             title: "T",
