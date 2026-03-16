@@ -7,21 +7,16 @@ import CoreGraphics
 /// 모든 위젯에 공통으로 적용되는 카드 프레임 설정을 담당합니다.
 class WidgetContainerViewModel: ObservableObject {
 
-    // MARK: - 기본 크기 상수
-
-    private let baseWidth: CGFloat = 160.0
-    private let baseHeight: CGFloat = 120.0
-
     // MARK: - Style Properties
 
     /// 위젯 카드의 corner radius (12pt)
-    let cornerRadius: CGFloat = 12.0
+    let cornerRadius: CGFloat = AppTheme.cornerRadius
 
     /// 위젯 카드의 surface 배경색 (hex)
-    let surfaceBackgroundHex: String = "#16213e"
+    let surfaceBackgroundHex: String = AppTheme.surfaceHex
 
     /// 위젯 카드의 border 색상 (hex)
-    let borderColorHex: String = "#0f3460"
+    let borderColorHex: String = AppTheme.borderHex
 
     // MARK: - Frame Size
 
@@ -31,7 +26,9 @@ class WidgetContainerViewModel: ObservableObject {
     /// - wide:   (baseWidth * 2 + gap) × baseHeight (2×1)
     /// - large:  (baseWidth * 2 + gap) × (baseHeight * 2 + gap) (2×2)
     func frameSize(for layout: WidgetLayout) -> CGSize {
-        let gap: CGFloat = 8.0
+        let baseWidth = AppTheme.widgetBaseWidth
+        let baseHeight = AppTheme.widgetBaseHeight
+        let gap = AppTheme.gridSpacing
         switch layout.size {
         case "small":
             return CGSize(width: baseWidth, height: baseHeight)

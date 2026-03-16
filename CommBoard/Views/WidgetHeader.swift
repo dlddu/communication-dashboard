@@ -44,7 +44,7 @@ struct WidgetHeader: View {
             Button(action: {
                 viewModel.refreshTapped()
             }) {
-                Image(systemName: viewModel.isRefreshing ? "arrow.clockwise" : "arrow.clockwise")
+                Image(systemName: viewModel.isRefreshing ? "arrow.clockwise.circle.fill" : "arrow.clockwise")
                     .font(.system(size: 12))
                     .foregroundColor(viewModel.isRefreshButtonEnabled ? .white : .gray)
             }

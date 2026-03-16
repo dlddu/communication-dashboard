@@ -9,23 +9,23 @@ struct WidgetGridView: View {
     // MARK: - Properties
 
     @ObservedObject var gridViewModel: WidgetGridViewModel
-    private let containerViewModel = WidgetContainerViewModel()
+    @ObservedObject var containerViewModel: WidgetContainerViewModel
 
     // MARK: - Body
 
     var body: some View {
         let columns = Array(
-            repeating: GridItem(.flexible(), spacing: 8),
+            repeating: GridItem(.flexible(), spacing: AppTheme.gridSpacing),
             count: gridViewModel.columnCount
         )
 
         ScrollView {
-            LazyVGrid(columns: columns, spacing: 8) {
-                ForEach(gridViewModel.orderedWidgets, id: \.pluginId) { layout in
+            LazyVGrid(columns: columns, spacing: AppTheme.gridSpacing) {
+                ForEach(gridViewModel.orderedWidgets, id: \.stableId) { layout in
                     widgetCell(for: layout)
                 }
             }
-            .padding(16)
+            .padding(AppTheme.horizontalPadding)
         }
         .accessibilityIdentifier("dashboard_widget_grid")
     }
@@ -39,10 +39,10 @@ struct WidgetGridView: View {
 
         ZStack(alignment: .topLeading) {
             RoundedRectangle(cornerRadius: containerViewModel.cornerRadius)
-                .fill(Color(hex: containerViewModel.surfaceBackgroundHex))
+                .fill(AppTheme.surfaceColor)
                 .overlay(
                     RoundedRectangle(cornerRadius: containerViewModel.cornerRadius)
-                        .stroke(Color(hex: containerViewModel.borderColorHex), lineWidth: 1)
+                        .stroke(AppTheme.borderColor, lineWidth: 1)
                 )
         }
         .frame(width: size.width, height: size.height)

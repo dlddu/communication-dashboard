@@ -18,10 +18,10 @@ struct WidgetContainer: View {
         let identifier = viewModel.accessibilityIdentifier(for: layout)
 
         RoundedRectangle(cornerRadius: viewModel.cornerRadius)
-            .fill(Color(hex: viewModel.surfaceBackgroundHex))
+            .fill(AppTheme.surfaceColor)
             .overlay(
                 RoundedRectangle(cornerRadius: viewModel.cornerRadius)
-                    .stroke(Color(hex: viewModel.borderColorHex), lineWidth: 1)
+                    .stroke(AppTheme.borderColor, lineWidth: 1)
             )
             .frame(width: size.width, height: size.height)
             .accessibilityIdentifier(identifier)

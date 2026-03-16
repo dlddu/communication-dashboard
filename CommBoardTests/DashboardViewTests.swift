@@ -11,6 +11,7 @@ import XCTest
 //   - 연결 상태(ConnectionStatus) 전환 로직
 //   - 편집 모드 토글
 //   - 위젯 레이아웃 로드 및 에러 처리
+//   - 로딩/비어있음/에러 상태 전환
 
 final class DashboardViewTests: XCTestCase {
 
@@ -144,6 +145,21 @@ final class DashboardViewTests: XCTestCase {
         )
     }
 
+    func testUpdateConnectionStatus_ToDisconnected_Succeeds() {
+        // Arrange
+        sut.updateConnectionStatus(.connected)
+
+        // Act
+        sut.updateConnectionStatus(.disconnected)
+
+        // Assert
+        XCTAssertEqual(
+            sut.connectionStatus,
+            .disconnected,
+            "연결 상태가 disconnected로 업데이트되어야 합니다"
+        )
+    }
+
     // MARK: - Loading State Tests
 
     func testLoadingState_WhenLoadWidgetsFails_IsError() async {
@@ -184,6 +200,45 @@ final class DashboardViewTests: XCTestCase {
         XCTAssertEqual(sut.loadingState, .empty, "위젯이 없을 때 상태는 empty여야 합니다")
     }
 
+    // MARK: - Loading State Transitions
+
+    func testLoadingState_TransitionFromLoadingToLoaded() async {
+        // Arrange
+        XCTAssertEqual(sut.loadingState, .loading)
+
+        // Act
+        await sut.setLoadingState(.loaded)
+
+        // Assert
+        XCTAssertEqual(sut.loadingState, .loaded, "loading에서 loaded로 전환되어야 합니다")
+    }
+
+    func testLoadingState_TransitionFromLoadingToEmpty() async {
+        // Arrange
+        XCTAssertEqual(sut.loadingState, .loading)
+
+        // Act
+        await sut.setLoadingState(.empty)
+
+        // Assert
+        XCTAssertEqual(sut.loadingState, .empty, "loading에서 empty로 전환되어야 합니다")
+    }
+
+    func testLoadingState_TransitionFromLoadingToError() async {
+        // Arrange
+        XCTAssertEqual(sut.loadingState, .loading)
+
+        // Act
+        await sut.setLoadingState(.error(message: "테스트 에러"))
+
+        // Assert
+        if case .error = sut.loadingState {
+            // OK
+        } else {
+            XCTFail("loading에서 error로 전환되어야 합니다")
+        }
+    }
+
     // MARK: - Retry Tests
 
     func testRetry_ResetsState_ToLoading() async {
@@ -201,10 +256,59 @@ final class DashboardViewTests: XCTestCase {
         )
     }
 
+    func testRetry_FromEmptyState_ResetsToLoading() async {
+        // Arrange
+        await sut.setLoadingState(.empty)
+
+        // Act
+        await sut.retry()
+
+        // Assert
+        XCTAssertEqual(
+            sut.loadingState,
+            .loading,
+            "empty 상태에서 재시도 시 loading으로 돌아가야 합니다"
+        )
+    }
+
     // MARK: - Title Bar Tests
 
     func testTitleBar_AppName_IsCommBoard() {
         // Assert
         XCTAssertEqual(sut.appName, "CommBoard", "앱 이름이 'CommBoard'여야 합니다")
+    }
+
+    // MARK: - Connection Status Equality Tests
+
+    func testConnectionStatus_AllCases_AreEquatable() {
+        // Assert
+        XCTAssertEqual(ConnectionStatus.connected, ConnectionStatus.connected)
+        XCTAssertEqual(ConnectionStatus.connecting, ConnectionStatus.connecting)
+        XCTAssertEqual(ConnectionStatus.disconnected, ConnectionStatus.disconnected)
+        XCTAssertEqual(ConnectionStatus.error, ConnectionStatus.error)
+        XCTAssertNotEqual(ConnectionStatus.connected, ConnectionStatus.disconnected)
+    }
+
+    // MARK: - Loading State Equality Tests
+
+    func testDashboardLoadingState_LoadedEqualsLoaded() {
+        // Assert
+        XCTAssertEqual(DashboardLoadingState.loaded, DashboardLoadingState.loaded)
+    }
+
+    func testDashboardLoadingState_ErrorWithSameMessage_AreEqual() {
+        // Assert
+        XCTAssertEqual(
+            DashboardLoadingState.error(message: "test"),
+            DashboardLoadingState.error(message: "test")
+        )
+    }
+
+    func testDashboardLoadingState_ErrorWithDifferentMessage_AreNotEqual() {
+        // Assert
+        XCTAssertNotEqual(
+            DashboardLoadingState.error(message: "a"),
+            DashboardLoadingState.error(message: "b")
+        )
     }
 }

@@ -32,6 +32,11 @@ class StatusBarViewModel: ObservableObject {
         return "status_bar_last_sync"
     }
 
+    /// polling 주기가 등록된 플러그인 ID를 알파벳 순으로 반환합니다.
+    var sortedPollingPluginIds: [String] {
+        pollingIntervals.keys.sorted()
+    }
+
     // MARK: - Polling Intervals
 
     /// 플러그인별 polling 주기를 업데이트합니다.
