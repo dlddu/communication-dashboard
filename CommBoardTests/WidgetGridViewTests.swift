@@ -446,4 +446,48 @@ final class WidgetGridViewTests: XCTestCase {
             "large 위젯의 접근성 식별자에 'large'이 포함되어야 합니다. 실제 값: \(identifier)"
         )
     }
+
+    // MARK: - StableId Tests
+
+    func testStableId_WithDatabaseId_UsesId() {
+        // Arrange
+        let layout = WidgetLayout(
+            id: 42,
+            pluginId: "test-plugin",
+            positionX: 0, positionY: 0,
+            size: "small",
+            order: 0
+        )
+
+        // Act
+        let stableId = layout.stableId
+
+        // Assert
+        XCTAssertEqual(stableId, "42", "DB id가 있으면 stableId는 id 문자열이어야 합니다")
+    }
+
+    func testStableId_WithoutDatabaseId_UsesPluginIdAndOrder() {
+        // Arrange
+        let layout = WidgetLayout(
+            pluginId: "test-plugin",
+            positionX: 0, positionY: 0,
+            size: "small",
+            order: 3
+        )
+
+        // Act
+        let stableId = layout.stableId
+
+        // Assert
+        XCTAssertEqual(stableId, "test-plugin_3", "DB id가 없으면 stableId는 pluginId_order 형식이어야 합니다")
+    }
+
+    func testStableId_ForDifferentWidgets_AreUnique() {
+        // Arrange
+        let layout1 = WidgetLayout(pluginId: "slack", positionX: 0, positionY: 0, size: "small", order: 0)
+        let layout2 = WidgetLayout(pluginId: "github", positionX: 0, positionY: 0, size: "small", order: 1)
+
+        // Act & Assert
+        XCTAssertNotEqual(layout1.stableId, layout2.stableId, "서로 다른 위젯은 다른 stableId를 가져야 합니다")
+    }
 }

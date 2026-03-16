@@ -274,4 +274,37 @@ final class StatusBarTests: XCTestCase {
             "3600초(1시간) 주기의 포맷 텍스트가 비어있지 않아야 합니다"
         )
     }
+
+    // MARK: - Sorted Polling Plugin Ids Tests
+
+    func testSortedPollingPluginIds_WhenEmpty_ReturnsEmpty() {
+        // Assert
+        XCTAssertTrue(
+            sut.sortedPollingPluginIds.isEmpty,
+            "polling 주기가 없으면 sortedPollingPluginIds는 비어야 합니다"
+        )
+    }
+
+    func testSortedPollingPluginIds_ReturnsSortedAlphabetically() {
+        // Arrange
+        sut.updatePollingIntervals(["slack": 60, "github": 120, "jira": 300])
+
+        // Act
+        let sorted = sut.sortedPollingPluginIds
+
+        // Assert
+        XCTAssertEqual(sorted, ["github", "jira", "slack"], "플러그인 ID가 알파벳 순으로 정렬되어야 합니다")
+    }
+
+    func testSortedPollingPluginIds_WithSinglePlugin_ReturnsOne() {
+        // Arrange
+        sut.updatePollingIntervals(["slack": 60])
+
+        // Act
+        let sorted = sut.sortedPollingPluginIds
+
+        // Assert
+        XCTAssertEqual(sorted.count, 1)
+        XCTAssertEqual(sorted.first, "slack")
+    }
 }
