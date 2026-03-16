@@ -8,6 +8,15 @@ struct WidgetLayout: Codable, Equatable {
 
     var id: Int64?
     var pluginId: String
+
+    /// ForEach 등에서 사용할 안정적인 식별자.
+    /// DB에서 로드된 경우 id를, 아닌 경우 pluginId+order 조합을 사용합니다.
+    var stableId: String {
+        if let id = id {
+            return "\(id)"
+        }
+        return "\(pluginId)_\(order)"
+    }
     var positionX: Double
     var positionY: Double
     var size: String
