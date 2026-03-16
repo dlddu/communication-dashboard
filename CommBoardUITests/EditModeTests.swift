@@ -24,8 +24,6 @@ final class EditModeTests: UITestBase {
 
     /// Dashboard에서 편집 버튼을 탭하면 Edit Mode로 진입해야 합니다.
     func testEditMode_TapEditButton_EntersEditMode() throws {
-        throw XCTSkip("Pending implementation: DLD-755")
-
         // Arrange & Act
         launchAppInMockMode()
 
@@ -58,8 +56,6 @@ final class EditModeTests: UITestBase {
 
     /// 편집 모드에서 위젯 크기를 small에서 medium으로 변경하면 그리드에 반영되어야 합니다.
     func testEditMode_ChangeWidgetSize_ReflectsInGrid() throws {
-        throw XCTSkip("Pending implementation: DLD-755")
-
         // Arrange & Act
         launchAppInMockMode()
 
@@ -108,8 +104,6 @@ final class EditModeTests: UITestBase {
 
     /// 편집 모드에서 위젯 삭제(✕) 버튼을 탭하면 해당 위젯이 그리드에서 제거되어야 합니다.
     func testEditMode_TapRemoveButton_RemovesWidgetFromGrid() throws {
-        throw XCTSkip("Pending implementation: DLD-755")
-
         // Arrange & Act
         launchAppInMockMode()
 
@@ -152,8 +146,6 @@ final class EditModeTests: UITestBase {
 
     /// 편집 모드에서 "완료" 버튼을 탭하면 Dashboard로 복귀하고 변경사항이 유지되어야 합니다.
     func testEditMode_TapDoneButton_ReturnsToDashboardWithChanges() throws {
-        throw XCTSkip("Pending implementation: DLD-755")
-
         // Arrange & Act
         launchAppInMockMode()
 
