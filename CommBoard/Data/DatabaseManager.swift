@@ -2,7 +2,7 @@ import Foundation
 import GRDB
 
 /// SQLite 데이터베이스를 관리합니다. GRDB를 사용합니다.
-final class DatabaseManager {
+class DatabaseManager {
 
     // MARK: - Properties
 
@@ -177,6 +177,26 @@ final class DatabaseManager {
             try db.execute(
                 sql: "DELETE FROM widget_layout WHERE id = ?",
                 arguments: [id]
+            )
+        }
+    }
+
+    /// 위젯 레이아웃의 크기를 업데이트합니다.
+    func updateWidgetSize(id: Int64, size: String) throws {
+        try dbQueue.write { db in
+            try db.execute(
+                sql: "UPDATE widget_layout SET size = ? WHERE id = ?",
+                arguments: [size, id]
+            )
+        }
+    }
+
+    /// 위젯 레이아웃의 순서를 업데이트합니다.
+    func updateWidgetOrder(id: Int64, order: Int) throws {
+        try dbQueue.write { db in
+            try db.execute(
+                sql: "UPDATE widget_layout SET \"order\" = ? WHERE id = ?",
+                arguments: [order, id]
             )
         }
     }

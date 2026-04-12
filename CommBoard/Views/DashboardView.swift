@@ -13,6 +13,8 @@ struct DashboardView: View {
     @StateObject private var statusBarViewModel = StatusBarViewModel()
     @StateObject private var containerViewModel = WidgetContainerViewModel()
 
+    @State private var editModeViewModel: EditModeViewModel? = nil
+
     // MARK: - Body
 
     var body: some View {
@@ -59,13 +61,37 @@ struct DashboardView: View {
 
             // 편집 모드 토글 버튼
             Button(action: {
-                dashboardViewModel.toggleEditMode()
+                if dashboardViewModel.isEditMode {
+                    // 편집 모드 종료 시 저장
+                    if let vm = editModeViewModel {
+                        Task {
+                            try? await vm.saveAndExit()
+                            // 편집 내용을 그리드에 반영
+                            gridViewModel.updateWidgets(vm.editingWidgets)
+                            dashboardViewModel.widgets = vm.editingWidgets
+                            dashboardViewModel.toggleEditMode()
+                            editModeViewModel = nil
+                        }
+                    } else {
+                        dashboardViewModel.toggleEditMode()
+                    }
+                } else {
+                    // 편집 모드 진입 시 EditModeViewModel 생성
+                    let allPluginIds = ["slack", "github", "jira", "notion", "figma"]
+                    editModeViewModel = EditModeViewModel(
+                        widgets: dashboardViewModel.widgets,
+                        allPluginIds: allPluginIds,
+                        dbManager: (try? DatabaseManager(inMemory: true)) ?? (try! DatabaseManager(inMemory: true))
+                    )
+                    dashboardViewModel.toggleEditMode()
+                }
             }) {
                 Text(dashboardViewModel.isEditMode ? "완료" : "편집")
                     .font(.caption)
                     .foregroundColor(.accentColor)
             }
             .buttonStyle(.plain)
+            .accessibilityIdentifier("edit_mode_button")
         }
         .padding(.horizontal, AppTheme.horizontalPadding)
         .padding(.vertical, AppTheme.titleBarVerticalPadding)
@@ -75,15 +101,30 @@ struct DashboardView: View {
     /// 로딩 상태에 따라 메인 콘텐츠를 분기합니다.
     @ViewBuilder
     private var mainContent: some View {
-        switch dashboardViewModel.loadingState {
-        case .loading:
-            loadingView
-        case .loaded:
-            WidgetGridView(gridViewModel: gridViewModel, containerViewModel: containerViewModel)
-        case .empty:
-            emptyView
-        case .error(let message):
-            errorView(message: message)
+        if dashboardViewModel.isEditMode, let editVM = editModeViewModel {
+            // 편집 모드 뷰
+            EditModeView(
+                viewModel: editVM,
+                containerViewModel: containerViewModel,
+                onDone: {
+                    try? await editVM.saveAndExit()
+                    gridViewModel.updateWidgets(editVM.editingWidgets)
+                    dashboardViewModel.widgets = editVM.editingWidgets
+                    dashboardViewModel.toggleEditMode()
+                    editModeViewModel = nil
+                }
+            )
+        } else {
+            switch dashboardViewModel.loadingState {
+            case .loading:
+                loadingView
+            case .loaded:
+                WidgetGridView(gridViewModel: gridViewModel, containerViewModel: containerViewModel)
+            case .empty:
+                emptyView
+            case .error(let message):
+                errorView(message: message)
+            }
         }
     }
 
